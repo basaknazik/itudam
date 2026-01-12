@@ -9,7 +9,7 @@
 * **Bulut Kayıt:** Google ile giriş yaparak programınızı kaydedebilirsiniz.
 
 ## 🔗 Canlı Demo
-Siteyi kullanmak için: [Buraya Tıkla](itudam.com)
+Siteyi kullanmak için: [Buraya Tıkla](www.itudam.com)
 
 ## 🛠️ Teknolojiler
 * HTML5, CSS3, JavaScript (ES6+)
