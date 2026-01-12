@@ -1,0 +1,50 @@
+name: Otomatik Güncelleme Robotu 🤖
+
+# NE ZAMAN ÇALIŞSIN?
+on:
+  # 1. Telefondan manuel tetikleme için:
+  workflow_dispatch:
+  # 2. Otomatik (Örn: Her 6 saatte bir):
+  schedule:
+    - cron: '0 */6 * * *'
+
+# İZİNLER (Siteyi güncellemesi için gerekli)
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Kodları İndir
+      - name: Depoyu Çek
+        uses: actions/checkout@v3
+
+      # 2. Python Kur
+      - name: Python Kur
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      # 3. Kütüphaneleri Yükle (Eğer requests, beautifulsoup vs. kullanıyorsan)
+      - name: Kütüphaneleri Yükle
+        run: |
+          pip install requests
+          pip install bs4
+          
+      # 4. Veriyi Çek (Bu senin scrape dosyan)
+      - name: 🔄 Verileri Güncelle
+        run: iturequestr.py
+
+      # 5. Siteyi İnşa Et (Bu bizim HTML yapan kod)
+      - name: 🏗️ Siteyi Oluştur
+        run: python sitebuilder.py
+
+      # 7. Değişiklikleri Kaydet ve Gönder (Push)
+      - name: 🚀 Değişiklikleri İşle
+        run: |
+          git config user.name "Otomatik Robot"
+          git config user.email "actions@github.com"
+          git add index.html dersler.json
+          git commit -m "Ders programı güncellendi: $(date)" || exit 0
+          git push
