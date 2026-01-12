@@ -9,7 +9,7 @@
 * **Bulut Kayıt:** Google ile giriş yaparak programınızı kaydedebilirsiniz.
 
 ## 🔗 Canlı Demo
-Siteyi kullanmak için: [Buraya Tıkla](https://senin-kullanici-adin.github.io/proje-adin/)
+Siteyi kullanmak için: [Buraya Tıkla](https://basaknazik.github.io/itudam/)
 
 ## 🛠️ Teknolojiler
 * HTML5, CSS3, JavaScript (ES6+)
