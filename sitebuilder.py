@@ -7,8 +7,8 @@ INPUT_JSON = "dersler.json"
 OUTPUT_HTML = "index.html"
 
 # --- 1. PYTHON VERİ İŞLEME (SADELEŞTİRİLMİŞ) ---
+# --- 1. PYTHON VERİ İŞLEME (CERRAHİ MÜDAHALE) ---
 def process_data():
-    # Sadece senin ana dosyanı kontrol etsin
     if not os.path.exists(INPUT_JSON):
         print(f"❌ HATA: {INPUT_JSON} dosyası bulunamadı! Lütfen JSON dosyasını bu klasöre at.")
         return None, None
@@ -24,17 +24,18 @@ def process_data():
         kod = (item.get("kod") or item.get("code") or item.get("DersKodu") or "").strip()
         isim = (item.get("isim") or item.get("title") or item.get("name") or item.get("DersAdi") or "").strip()
         hoca = (item.get("hoca") or item.get("instructor") or item.get("OgretimUyesi") or "").strip()
-        sinif = (item.get("Başarılan Kredi/ Sınıf Önşartı") or item.get("BasarilanKrediSinifOnsarti") or item.get("SinifOnsarti") or item.get("Restricts") or item.get("ClassRestriction") or "").strip()
         
+        # --- KRİTİK DÜZELTME BURADA ---
+        # Artık sağa sola bakmak yok. Sadece senin scraper'ının ürettiği 'sinif' anahtarına bakıyoruz.
+        # Eğer 'sinif' anahtarı yoksa (eski veri vs.), boş kabul et.
+        raw_sinif_data = str(item.get("sinif") or "").strip()
+
+        # Sadece bu sütunun içinde "Detay" kelimesi geçiyorsa TRUE olur.
+        # Böylece Ön Şart (Prerequisite) sütununda Detay yazsa bile etkilenmez.
+        is_senior = "Detay" in raw_sinif_data 
+        # ------------------------------
+
         if not crn or not kod: continue
-
-        # --- 1. JSON'dan Gelen Veriyi Yakala ---
-        # Scraper 'sinif' olarak kaydettiği için önceliği ona veriyoruz.
-        raw_sinif = str(item.get("sinif") or item.get("Başarılan Kredi/ Sınıf Önşartı") or "").strip()
-
-        # --- 2. Mantıksal Kontrol (True/False) ---
-        # İçinde "Detay" kelimesi geçiyorsa bu bir 4. sınıf/kısıtlı derstir.
-        is_senior = "Detay" in raw_sinif
 
         if crn not in courses_map:
             courses_map[crn] = {
@@ -44,7 +45,7 @@ def process_data():
                 "i": hoca, 
                 "s": [], 
                 "t": "SABIT",
-                "lv4": is_senior  # <-- Kritik Veri: Frontend bunu okuyacak
+                "lv4": is_senior  # <-- Artık sadece sınıf kısıtında 'Detay' varsa True
             }
             subj = kod.split(" ")[0]
             if len(subj) > 1: subjects.add(subj)
