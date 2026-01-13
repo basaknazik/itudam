@@ -68,7 +68,7 @@ def scrape_branch(branch_id):
         kod = cols[1].text.strip()
         isim = cols[2].text.strip()
         hoca = cols[4].text.strip()
-        sinif = cols[13].text.strip()
+        sinif = cols[14].text.strip()
 
         # Çok satırlı sütunlar (Gün, Saat)
         gunler = clean_text(cols[6])
