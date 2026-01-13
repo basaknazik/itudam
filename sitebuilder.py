@@ -21,16 +21,17 @@ def process_data():
 
     for item in raw_data:
         # Veri temizleme ve okuma işlemleri aynı
-        crn = str(item.get("crn") or item.get("CRN") or "").strip()
-        kod = (item.get("kod") or item.get("code") or item.get("DersKodu") or "").strip()
-        isim = (item.get("isim") or item.get("title") or item.get("name") or item.get("DersAdi") or "").strip()
-        hoca = (item.get("hoca") or item.get("instructor") or item.get("OgretimUyesi") or "").strip()
+        crn = str(item.get("crn")).strip()
+        kod = (item.get("kod")).strip()
+        isim = (item.get("isim")).strip()
+        hoca = (item.get("hoca")).strip()
+        sinif = (item.get("sinif")).strip()
         
         if not crn or not kod: continue
 
         if crn not in courses_map:
             courses_map[crn] = {
-                "id": crn, "k": kod, "n": isim, "i": hoca, "s": [], "t": "SABIT"
+                "id": crn, "k": kod, "n": isim, "i": hoca, "s": [], "t": "SABIT", "lv4": "Detay" in sinif
             }
             subj = kod.split(" ")[0]
             if len(subj) > 1: subjects.add(subj)
@@ -182,6 +183,13 @@ html_template = """
             <div id="panel-filter" class="panel">
                 <select id="sel-subj"><option value="ALL">Tümü</option></select>
                 <label class="checkbox-row"><input type="checkbox" id="chk-clean" checked> Sadece Çakışmayanlar</label>
+                <label class="checkbox-row">
+                    <input type="checkbox" id="chk-clean" checked> Sadece Çakışmayanlar
+                </label>
+
+                <label class="checkbox-row" style="color: var(--orange);">
+                    <input type="checkbox" id="chk-senior"> 🎓 4. Sınıf / Bitirme Derslerini Göster
+                </label>
                 <button class="btn-find" onclick="runFilter()">🔍 LİSTELE</button>
                 <div id="loading">İşleniyor...</div>
             </div>
@@ -364,6 +372,15 @@ html_template = """
         sel.appendChild(frag);
         document.getElementById('db-stat').innerText = ``;
         refreshUI();
+        // 1. LocalStorage'dan tercihi oku, yoksa 'false' kabul et
+        const isSeniorPref = localStorage.getItem("dam_show_senior") === "true";
+        document.getElementById('chk-senior').checked = isSeniorPref;
+
+        // 2. Checkbox değiştiğinde hemen hafızaya yaz ve filtreyi çalıştır
+        document.getElementById('chk-senior').addEventListener('change', (e) => {
+            localStorage.setItem("dam_show_senior", e.target.checked);
+            runFilter(); // Listeyi anında yenile
+        });
     }
 
     function setMode(mode) {
@@ -396,16 +413,34 @@ html_template = """
         }, 300);
     });
 
+    // --- runFilter() fonksiyonu içinde ---
+
     function runFilter() {
         const subj = document.getElementById('sel-subj').value;
         const clean = document.getElementById('chk-clean').checked;
+        
+        // YENİ: Checkbox durumunu al
+        const showSenior = document.getElementById('chk-senior').checked; 
+
         const loader = document.getElementById('loading');
         loader.style.display = 'block';
+
         setTimeout(() => {
             let hits = [];
             if (subj === "ALL") hits = RAW_DB; else hits = RAW_DB.filter(c => c.k.startsWith(subj));
+            
+            // Zaten ekli olanları gizle
             hits = hits.filter(c => !window.MY_PROG[c.id]);
+
+            // --- 4. SINIF FİLTRESİ (OPERASYON BURADA) ---
+            if (!showSenior) {
+                // Eğer checkbox işaretli DEĞİLSE, 4. sınıf (lv4 == true) olanları LİSTEDEN AT.
+                hits = hits.filter(c => c.lv4 !== true);
+            }
+            // ---------------------------------------------
+
             if (clean) {
+                // ... (Eski çakışma kontrol kodların burada kalacak) ...
                 const fixed = Object.values(window.MY_PROG).filter(p => p.t === "SABIT");
                 if (fixed.length > 0) {
                     hits = hits.filter(cand => {
@@ -415,6 +450,7 @@ html_template = """
                     });
                 }
             }
+            
             showResults(hits.slice(0, 100));
             loader.style.display = 'none';
         }, 50);

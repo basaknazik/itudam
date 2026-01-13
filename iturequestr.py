@@ -68,6 +68,7 @@ def scrape_branch(branch_id):
         kod = cols[1].text.strip()
         isim = cols[2].text.strip()
         hoca = cols[4].text.strip()
+        sinif = cols[13].text.strip()
 
         # Çok satırlı sütunlar (Gün, Saat)
         gunler = clean_text(cols[6])
@@ -93,7 +94,8 @@ def scrape_branch(branch_id):
                     "gun": gun,
                     "raw_saat": saat_raw,
                     "bas": bas,
-                    "bit": bit
+                    "bit": bit,
+                    "sinif": sinif
                 }
                 page_courses.append(ders_objesi)
     
