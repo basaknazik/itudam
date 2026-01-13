@@ -2,8 +2,8 @@ name: Otomatik Güncelleme Robotu 🤖
 
 on:
   workflow_dispatch: # Telefondan tetiklemek için
-  schedule:
-    - cron: '0 */6 * * *' # 6 saatte bir çalışır
+ # schedule:
+ #  - cron: '0 */6 * * *' # 6 saatte bir çalışır
 
 permissions:
   contents: write
