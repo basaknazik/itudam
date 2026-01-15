@@ -12,12 +12,13 @@ def tr_gun_yap(gun_adi):
     g = str(gun_adi).lower().strip()
     
     mapping = {
-        "monday" : "Pazartesi",
-        "tuesday" : "Salı",
-        "wednesday" : "Çarşamba",
-        "thursday" : "Perşembe",
-        "friday" : "Cuma",
-        "detail" : "Detay"
+        "monday": "Pazartesi", "mon": "Pazartesi",
+        "tuesday": "Salı", "tue": "Salı",
+        "wednesday": "Çarşamba", "wed": "Çarşamba",
+        "thursday": "Perşembe", "thu": "Perşembe",
+        "friday": "Cuma", "fri": "Cuma",
+        "saturday": "Cumartesi",
+        "sunday": "Pazar"
     }
     
     return mapping.get(g, None)
@@ -37,19 +38,22 @@ def process_data():
     courses_map = {}
     subjects = set()
 
-    # --- JSON OKUMA VE DÜZENLEME ---
     for item in raw_data:
-        # Alanları esnek okuma (Büyük/küçük harf duyarlılığı olmadan)
-        crn = str(item.get("crn") or item.get("CRN") or "").strip()
+        # Başlık satırını atla
+        raw_crn = str(item.get("crn") or item.get("CRN") or "").strip()
+        if raw_crn.upper() == "CRN" or not raw_crn:
+            continue
+
+        crn = raw_crn
         kod = (item.get("kod") or item.get("code") or item.get("DersKodu") or "").strip()
         isim = (item.get("isim") or item.get("title") or item.get("name") or item.get("DersAdi") or "").strip()
         hoca = (item.get("hoca") or item.get("instructor") or item.get("OgretimUyesi") or "").strip()
         
-        # Sınıf "Detay" kontrolü (4. Sınıf filtresi için)
+        # --- DÜZELTME BURADA YAPILDI ---
+        # Hem 'Detay' hem 'Detail' kelimesini kontrol ediyoruz
         raw_sinif = str(item.get("sinif") or item.get("Sinif") or item.get("Class") or "").strip()
-        is_senior = "Detay" in raw_sinif # "Detay" kelimesi varsa True olur
+        is_senior = "Detay" in raw_sinif or "Detail" in raw_sinif
 
-        # Dersi haritaya ekle veya güncelle
         if crn not in courses_map:
             courses_map[crn] = {
                 "id": crn, 
@@ -60,42 +64,35 @@ def process_data():
                 "t": "SABIT",
                 "lv4": is_senior 
             }
-            # Ders kodunun ilk kısmını (BLG, MAT vs.) konu listesine ekle
             subj = kod.split(" ")[0]
             if len(subj) > 1: subjects.add(subj)
         else:
-            # Eğer aynı CRN'in başka bir satırında "Detay" varsa, dersi senior yap
             if is_senior:
                 courses_map[crn]["lv4"] = True
 
-        # --- GÜN VE SAAT İŞLEME (KRİTİK BÖLÜM) ---
+        # Gün ve Saat İşleme
         raw_gun = item.get("gun") or item.get("day") or item.get("Gun")
-        gun_tr = tr_gun_yap(raw_gun) # İngilizce günleri Türkçeye çevir
+        gun_tr = tr_gun_yap(raw_gun) 
 
         bas = item.get("bas") or item.get("start") or item.get("BaslangicSaati")
         bit = item.get("bit") or item.get("end") or item.get("BitisSaati")
 
         if gun_tr and bas is not None:
             try:
-                # Saat verisi string gelirse float'a çevir (örn: "13:30" -> 13.5 yapılabilir ama senin json float geliyor gibi)
-                # Senin JSON'da zaten float (15.5 gibi) geliyor, direkt alıyoruz.
                 b_val = float(bas)
                 e_val = float(bit)
                 courses_map[crn]["s"].append({ "d": gun_tr, "b": b_val, "e": e_val })
-            except ValueError:
+            except (ValueError, TypeError):
                 pass 
 
     clean_data = list(courses_map.values())
     sorted_subjects = sorted(list(subjects))
     
     print(f"📊 İşlenen Ders Sayısı: {len(clean_data)}")
-    if len(clean_data) > 0:
-        print(f"✅ Örnek veri (İlk ders): {clean_data[0]['k']} - Günler: {[s['d'] for s in clean_data[0]['s']]}")
     
     return json.dumps(clean_data, ensure_ascii=False), json.dumps(sorted_subjects, ensure_ascii=False)
 
-
-# HTML ŞABLONU (JS Mantığı Düzeltildi)
+# HTML KODU (AYNI KALDI)
 html_template = """
 <!DOCTYPE html>
 <html lang="tr">
@@ -111,7 +108,6 @@ html_template = """
         * { box-sizing: border-box; }
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', sans-serif; background: var(--bg); color: #e0e0e0; }
         
-        /* GİRİŞ EKRANI */
         #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f0f0f; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.6s ease, visibility 0.6s; }
         .login-box { width: 360px; padding: 40px; background: #1a1a1a; border: 1px solid #333; border-radius: 12px; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
         .login-logo { font-size: 40px; font-weight: 800; color: var(--blue); letter-spacing: -2px; margin-bottom: 5px; }
@@ -120,13 +116,10 @@ html_template = """
         .btn-login-main { width: 100%; padding: 12px; background: white; color: black; border: none; border-radius: 6px; font-weight: bold; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: transform 0.2s, background 0.2s; }
         .btn-login-main:hover { background: #e0e0e0; transform: scale(1.02); }
         
-        /* ANA UYGULAMA (GİZLİ BAŞLAR) */
         #app { display: flex; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease; }
         
-        /* SIDEBAR & UI ELEMENTS */
         #sidebar { width: var(--sidebar-width); min-width: var(--sidebar-width); background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 50; }
         
-        /* User Profile Area in Sidebar */
         #user-profile-bar { padding: 10px 15px; background: #151515; border-bottom: 1px solid #333; display:flex; align-items:center; gap:10px; font-size:12px; }
         #user-avatar { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--blue); }
         #user-name { flex-grow: 1; font-weight: bold; color: #ddd; }
@@ -486,10 +479,12 @@ html_template = """
             hits = hits.filter(c => !window.MY_PROG[c.id]);
 
             // --- 4. SINIF FİLTRESİ ---
+            // Senior GÖSTERME (Checkbox False ise) -> Senior olanları filtrele
+            // Yani, eğer kutucuk SEÇİLİ DEĞİLSE, senior olanları ÇIKAR.
             if (!showSenior) {
-                // lv4 true ise listeden at
                 hits = hits.filter(c => c.lv4 !== true);
             }
+            // Kutucuk SEÇİLİ İSE hepsini göster (bir şey yapma)
 
             if (clean) {
                  // DÜZELTME: Çakışma kontrolü artık TÜM programdaki derslerle yapılıyor (Sadece SABİT değil)
@@ -661,7 +656,7 @@ def build():
     with open(OUTPUT_HTML, "w", encoding="utf-8") as f:
         f.write(html_template.replace("{db_placeholder}", data_json).replace("{subj_placeholder}", subj_json))
     
-    print(f"✅ {OUTPUT_HTML} oluşturuldu! Artık tüm gün isimleri Türkçe ve filtreler düzgün.")
+    print(f"✅ {OUTPUT_HTML} oluşturuldu! Artık tüm gün isimleri Türkçe, filtreler düzgün ve 4. sınıf (Detail/Detay) filtresi çalışıyor.")
 
 if __name__ == "__main__":
     build()
