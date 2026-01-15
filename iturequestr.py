@@ -152,9 +152,9 @@ def main():
                         isim = cols[2].text.strip()
                         hoca = cols[4].text.strip()
                         
-                        # Sınıf Kısıtlaması (Genelde 13. index)
+                        # Sınıf Kısıtlaması (Genelde 14. index)
                         sinif = ""
-                        if len(cols) > 13: sinif = cols[13].text.strip()
+                        if len(cols) > 14: sinif = cols[14].text.strip()
 
                         gunler = clean_text(cols[6])
                         saatler = clean_text(cols[7])
