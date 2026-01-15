@@ -6,7 +6,8 @@ import os
 INPUT_JSON = "dersler.json"
 OUTPUT_HTML = "index.html"
 
-# --- 1. PYTHON VERİ İŞLEME (DÜZELTİLMİŞ) ---
+# --- 1. PYTHON VERİ İŞLEME (SADELEŞTİRİLMİŞ) ---
+# --- 1. PYTHON VERİ İŞLEME (CERRAHİ MÜDAHALE) ---
 def process_data():
     if not os.path.exists(INPUT_JSON):
         print(f"❌ HATA: {INPUT_JSON} dosyası bulunamadı! Lütfen JSON dosyasını bu klasöre at.")
@@ -19,28 +20,22 @@ def process_data():
     subjects = set()
 
     for item in raw_data:
-        # CRN verisini al
         crn = str(item.get("crn") or item.get("CRN") or "").strip()
-        
-        # --- DÜZELTME: BAŞLIK VE BOŞ SATIR KONTROLÜ ---
-        # Eğer CRN "CRN" kelimesi ise (başlık satırı) veya boşsa bu satırı atla.
-        if not crn or crn.upper() == "CRN":
-            continue
-        # ----------------------------------------------
-
         kod = (item.get("kod") or item.get("code") or item.get("DersKodu") or "").strip()
-        # Eğer ders kodu yoksa da atla
-        if not kod:
-            continue
-
         isim = (item.get("isim") or item.get("title") or item.get("name") or item.get("DersAdi") or "").strip()
         hoca = (item.get("hoca") or item.get("instructor") or item.get("OgretimUyesi") or "").strip()
         
-        # --- SINIF/DETAY KONTROLÜ ---
+        # --- KRİTİK DÜZELTME BURADA ---
+        # Artık sağa sola bakmak yok. Sadece senin scraper'ının ürettiği 'sinif' anahtarına bakıyoruz.
+        # Eğer 'sinif' anahtarı yoksa (eski veri vs.), boş kabul et.
         raw_sinif_data = str(item.get("sinif") or "").strip()
-        # Sadece 'sinif' sütununda "Detay" yazıyorsa 4. sınıf/kısıtlı ders olarak işaretle
+
+        # Sadece bu sütunun içinde "Detay" kelimesi geçiyorsa TRUE olur.
+        # Böylece Ön Şart (Prerequisite) sütununda Detay yazsa bile etkilenmez.
         is_senior = "Detay" in raw_sinif_data 
-        # ----------------------------
+        # ------------------------------
+
+        if not crn or not kod: continue
 
         if crn not in courses_map:
             courses_map[crn] = {
@@ -50,33 +45,21 @@ def process_data():
                 "i": hoca, 
                 "s": [], 
                 "t": "SABIT",
-                "lv4": is_senior
+                "lv4": is_senior  # <-- Artık sadece sınıf kısıtında 'Detay' varsa True
             }
-            # Ders kodunun ilk kelimesini (örn: BLG, MAT) konu (subject) olarak ekle
             subj = kod.split(" ")[0]
-            if len(subj) > 1: 
-                subjects.add(subj)
+            if len(subj) > 1: subjects.add(subj)
 
         gun = item.get("gun") or item.get("day") or item.get("Gun")
         bas = item.get("bas") or item.get("start") or item.get("BaslangicSaati")
         bit = item.get("bit") or item.get("end") or item.get("BitisSaati")
 
-        # Gün ve Başlangıç saati varsa ders programına ekle
         if gun and bas is not None:
-            try:
-                courses_map[crn]["s"].append({ 
-                    "d": gun, 
-                    "b": float(bas), 
-                    "e": float(bit) if bit is not None else float(bas) 
-                })
-            except ValueError:
-                pass # Sayısal olmayan saat verisi varsa atla
+            courses_map[crn]["s"].append({ "d": gun, "b": float(bas), "e": float(bit) })
 
     clean_data = list(courses_map.values())
     sorted_subjects = sorted(list(subjects))
     return json.dumps(clean_data, ensure_ascii=False), json.dumps(sorted_subjects, ensure_ascii=False)
-
-# --- 2. HTML ŞABLONU (BURADAN AŞAĞISINA DOKUNMAYIN) ---
 # --- 2. HTML ŞABLONU ---
 html_template = """
 
@@ -485,7 +468,7 @@ html_template = """
                  }
             }
             
-            showResults(hits.slice(0, 100));
+            showResults(hits.slice(0, 1000));
             loader.style.display = 'none';
         }, 50);
     }
