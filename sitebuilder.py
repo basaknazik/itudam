@@ -6,21 +6,31 @@ import os
 INPUT_JSON = "dersler.json"
 OUTPUT_HTML = "index.html"
 
-# --- GÜN EŞLEŞTİRİCİ ---
-# İTÜ'den ne gelirse gelsin, HTML'in anladığı formata çeviriyoruz.
+# --- GÜN EŞLEŞTİRİCİ (GENİŞLETİLMİŞ) ---
+# Hem Türkçe hem İngilizce hem de Kısaltmaları kabul eder.
 DAY_MAPPING = {
-    "Pazartesi": "Pazartesi", "PAZARTESİ": "Pazartesi", "Pzt": "Pazartesi",
-    "Salı": "Salı", "Sali": "Salı", "SALI": "Salı", "Sal": "Salı",
-    "Çarşamba": "Çarşamba", "Carsamba": "Çarşamba", "ÇARŞAMBA": "Çarşamba", "Car": "Çarşamba",
-    "Perşembe": "Perşembe", "Persembe": "Perşembe", "PERŞEMBE": "Perşembe", "Per": "Perşembe",
-    "Cuma": "Cuma", "CUMA": "Cuma", "Cum": "Cuma"
+    # Türkçe Tam
+    "Pazartesi": "Pazartesi", "PAZARTESİ": "Pazartesi", 
+    "Salı": "Salı", "Sali": "Salı", "SALI": "Salı", 
+    "Çarşamba": "Çarşamba", "Carsamba": "Çarşamba", "ÇARŞAMBA": "Çarşamba",
+    "Perşembe": "Perşembe", "Persembe": "Perşembe", "PERŞEMBE": "Perşembe", 
+    "Cuma": "Cuma", "CUMA": "Cuma",
+    
+    # Türkçe Kısa
+    "Pzt": "Pazartesi", "Sal": "Salı", "Çar": "Çarşamba", "Car": "Çarşamba", "Per": "Perşembe", "Cum": "Cuma",
+
+    # İngilizce Tam (GitHub Sunucuları İçin)
+    "Monday": "Pazartesi", "Tuesday": "Salı", "Wednesday": "Çarşamba", 
+    "Thursday": "Perşembe", "Friday": "Cuma", "Saturday": "Cumartesi", "Sunday": "Pazar",
+
+    # İngilizce Kısa
+    "Mon": "Pazartesi", "Tue": "Salı", "Wed": "Çarşamba", "Thu": "Perşembe", "Fri": "Cuma"
 }
 
 def safe_float(val):
     """ '08:30' veya 8.5 verisini güvenli sayıya çevirir. """
     if val is None or val == "": return None
     try:
-        # Önce metne çevirip : ve / işaretlerini nokta yapıyoruz
         s_val = str(val).replace(":", ".").replace("/", ".")
         return float(s_val)
     except:
@@ -38,7 +48,7 @@ def process_data():
     courses_map = {}
     subjects = set()
     
-    # İstatistikler (Hatanın nerede olduğunu anlamak için)
+    # İstatistikler
     stats = {
         "toplam_veri": len(raw_data),
         "basarili_slot": 0,
@@ -47,8 +57,10 @@ def process_data():
         "saatsiz_ders": 0
     }
 
+    # Hata ayıklama için ilk 5 hatayı saklayalım
+    hatali_gun_ornekleri = set()
+
     for item in raw_data:
-        # 1. Temel Verileri Al
         crn = str(item.get("crn") or item.get("id") or "").strip()
         kod = (item.get("kod") or "").strip()
         isim = (item.get("isim") or "").strip()
@@ -56,42 +68,35 @@ def process_data():
         
         if not crn or not kod: continue
 
-        # 2. Ana Depoya Ekle (Eğer yoksa)
         if crn not in courses_map:
-            # 4. Sınıf / Kısıt Kontrolü
             raw_sinif = str(item.get("sinif") or "").strip()
             is_senior = "Detay" in raw_sinif
             
             courses_map[crn] = {
-                "id": crn, 
-                "k": kod, 
-                "n": isim, 
-                "i": hoca, 
-                "s": [], # Saatler buraya dolacak
-                "t": "SABIT",
-                "lv4": is_senior
+                "id": crn, "k": kod, "n": isim, "i": hoca, 
+                "s": [], "t": "SABIT", "lv4": is_senior
             }
             subj = kod.split(" ")[0]
             if len(subj) > 1: subjects.add(subj)
 
-        # 3. Zaman Verisini İşle
         raw_gun = item.get("gun")
         raw_bas = item.get("bas")
         raw_bit = item.get("bit")
 
-        # -- SENARYO A: Saatsiz Ders --
+        # Saatsiz Ders
         if not raw_gun:
             stats["saatsiz_ders"] += 1
             continue 
 
-        # -- SENARYO B: Saatli Ders --
-        # Günü düzelt (Boşlukları sil, haritadan bak)
-        clean_gun = DAY_MAPPING.get(str(raw_gun).strip())
+        # Günü Temizle ve Eşleştir
+        clean_gun_key = str(raw_gun).strip()
+        clean_gun = DAY_MAPPING.get(clean_gun_key)
         
         if not clean_gun:
             stats["hatali_gun"] += 1
-            # Debug: Hangi gün ismi hatalı?
-            # print(f"⚠️ Gün Tanınmadı: {raw_gun}") 
+            # Bilinmeyen gün ismini kaydet (Logda görmek için)
+            if len(hatali_gun_ornekleri) < 5:
+                hatali_gun_ornekleri.add(clean_gun_key)
             continue
 
         bas_float = safe_float(raw_bas)
@@ -99,34 +104,32 @@ def process_data():
 
         if bas_float is not None and bit_float is not None:
             courses_map[crn]["s"].append({
-                "d": clean_gun, 
-                "b": bas_float, 
-                "e": bit_float
+                "d": clean_gun, "b": bas_float, "e": bit_float
             })
             stats["basarili_slot"] += 1
         else:
             stats["hatali_saat"] += 1
-            # Debug: Hangi saat bozuk?
-            # print(f"⚠️ Saat Bozuk: {kod} -> {raw_bas} / {raw_bit}")
 
-    # --- RAPOR ---
+    # --- DETAYLI RAPOR ---
     print("-" * 40)
     print(f"📊 RAPOR:")
-    print(f"   Toplam Veri Satırı: {stats['toplam_veri']}")
-    print(f"   ✅ Başarılı Takvim Girişi: {stats['basarili_slot']}")
-    print(f"   ⚠️ Gün İsmi Hatalı: {stats['hatali_gun']}")
-    print(f"   ⚠️ Saat Formatı Hatalı: {stats['hatali_saat']}")
-    print(f"   ℹ️ Saatsiz/Günsüz Ders: {stats['saatsiz_ders']}")
+    print(f"   Toplam Veri: {stats['toplam_veri']}")
+    print(f"   ✅ Başarılı: {stats['basarili_slot']}")
+    print(f"   ⚠️ Gün Hatası: {stats['hatali_gun']}")
+    print(f"   ⚠️ Saat Hatası: {stats['hatali_saat']}")
     print("-" * 40)
     
-    if stats['basarili_slot'] == 0:
-        print("🚨 UYARI: Takvime hiçbir ders eklenemedi! JSON verisinde sorun olabilir.")
+    if stats['hatali_gun'] > 0:
+        print("🚨 TESPİT EDİLEN HATALI GÜN İSİMLERİ (Bunları DAY_MAPPING'e ekle):")
+        for g in hatali_gun_ornekleri:
+            print(f"   -> '{g}'")
+        print("-" * 40)
 
     clean_data = list(courses_map.values())
     sorted_subjects = sorted(list(subjects))
     return json.dumps(clean_data, ensure_ascii=False), json.dumps(sorted_subjects, ensure_ascii=False)
 
-# HTML Şablonu (Senin gönderdiğin HTML'in AYNISI)
+# HTML Şablonu (Aynı kalıyor, yer kazanmak için kısalttım ama sen dosyadakini koru)
 html_template = """
 <!DOCTYPE html>
 <html lang="tr">
