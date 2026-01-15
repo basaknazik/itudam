@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import json
 import os
 
@@ -6,8 +5,22 @@ import os
 INPUT_JSON = "dersler.json"
 OUTPUT_HTML = "index.html"
 
-# --- 1. PYTHON VERİ İŞLEME (SADELEŞTİRİLMİŞ) ---
-# --- 1. PYTHON VERİ İŞLEME (CERRAHİ MÜDAHALE) ---
+# --- YARDIMCI FONKSİYON: SAAT DÜZELTİCİ ---
+# Gelen veri "08:30" da olsa, 8.5 de olsa, boş da olsa bunu sayıya çevirir.
+def safe_float_time(val):
+    if val is None or val == "":
+        return None
+    try:
+        # Zaten sayıysa direkt döndür (Scraper'dan gelen float)
+        if isinstance(val, (int, float)):
+            return float(val)
+        # Metinse (Örn: "08:30") düzelt
+        val = str(val).replace(":", ".").replace("/", ".")
+        return float(val)
+    except:
+        return None
+
+# --- 1. PYTHON VERİ İŞLEME ---
 def process_data():
     if not os.path.exists(INPUT_JSON):
         print(f"❌ HATA: {INPUT_JSON} dosyası bulunamadı! Lütfen JSON dosyasını bu klasöre at.")
@@ -20,45 +33,58 @@ def process_data():
     subjects = set()
 
     for item in raw_data:
+        # Verileri güvenli bir şekilde al
         crn = str(item.get("crn") or item.get("CRN") or "").strip()
         kod = (item.get("kod") or item.get("code") or item.get("DersKodu") or "").strip()
         isim = (item.get("isim") or item.get("title") or item.get("name") or item.get("DersAdi") or "").strip()
         hoca = (item.get("hoca") or item.get("instructor") or item.get("OgretimUyesi") or "").strip()
         
-        # --- KRİTİK DÜZELTME BURADA ---
-        # Artık sağa sola bakmak yok. Sadece senin scraper'ının ürettiği 'sinif' anahtarına bakıyoruz.
-        # Eğer 'sinif' anahtarı yoksa (eski veri vs.), boş kabul et.
+        # --- 4. SINIF / KISIT KONTROLÜ ---
         raw_sinif_data = str(item.get("sinif") or "").strip()
-
-        # Sadece bu sütunun içinde "Detay" kelimesi geçiyorsa TRUE olur.
-        # Böylece Ön Şart (Prerequisite) sütununda Detay yazsa bile etkilenmez.
-        is_senior = "Detay" in raw_sinif_data 
-        # ------------------------------
+        is_senior = "Detay" in raw_sinif_data
+        # --------------------------------
 
         if not crn or not kod: continue
 
+        # Eğer bu ders daha önce listeye eklenmemişse, iskeletini oluştur
         if crn not in courses_map:
             courses_map[crn] = {
                 "id": crn, 
                 "k": kod, 
                 "n": isim, 
                 "i": hoca, 
-                "s": [], 
+                "s": [],        # <-- İŞTE BURASI: Ders saatlerinin birikeceği boş liste
                 "t": "SABIT",
-                "lv4": is_senior  # <-- Artık sadece sınıf kısıtında 'Detay' varsa True
+                "lv4": is_senior
             }
             subj = kod.split(" ")[0]
             if len(subj) > 1: subjects.add(subj)
 
+        # -----------------------------------------------------------
+        # 📍 DERSLERİ SAATLERİNE GÖRE AYIRDIĞIMIZ VE SİSTEME KOYDUĞUMUZ YER
+        # -----------------------------------------------------------
         gun = item.get("gun") or item.get("day") or item.get("Gun")
-        bas = item.get("bas") or item.get("start") or item.get("BaslangicSaati")
-        bit = item.get("bit") or item.get("end") or item.get("BitisSaati")
+        
+        # Saatleri "Zırhlı" fonksiyonumuzla alıyoruz (Hata vermesin diye)
+        bas = safe_float_time(item.get("bas") or item.get("start") or item.get("BaslangicSaati"))
+        bit = safe_float_time(item.get("bit") or item.get("end") or item.get("BitisSaati"))
 
-        if gun and bas is not None:
-            courses_map[crn]["s"].append({ "d": gun, "b": float(bas), "e": float(bit) })
+        # Eğer gün ve saat bilgisi geçerliyse, listeye ekle
+        if gun and bas is not None and bit is not None:
+            # "s" listesine yeni bir zaman dilimi ekliyoruz
+            courses_map[crn]["s"].append({ 
+                "d": gun,   # Day (Gün)
+                "b": bas,   # Begin (Başlangıç Saati - Örn: 8.5)
+                "e": bit    # End (Bitiş Saati - Örn: 11.5)
+            })
+        # -----------------------------------------------------------
 
     clean_data = list(courses_map.values())
     sorted_subjects = sorted(list(subjects))
+    
+    # İstatistik
+    print(f"📊 İşlenen Ders Sayısı: {len(clean_data)}")
+    
     return json.dumps(clean_data, ensure_ascii=False), json.dumps(sorted_subjects, ensure_ascii=False)
 # --- 2. HTML ŞABLONU ---
 html_template = """
