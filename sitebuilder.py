@@ -12,13 +12,12 @@ def tr_gun_yap(gun_adi):
     g = str(gun_adi).lower().strip()
     
     mapping = {
-        "monday": "Pazartesi", "mon": "Pazartesi",
-        "tuesday": "Salı", "tue": "Salı",
-        "wednesday": "Çarşamba", "wed": "Çarşamba",
-        "thursday": "Perşembe", "thu": "Perşembe",
-        "friday": "Cuma", "fri": "Cuma",
-        "saturday": "Cumartesi",
-        "sunday": "Pazar"
+        "monday": "Pazartesi", "mon": "Pazartesi", "pazartesi": "Pazartesi",
+        "tuesday": "Salı", "tue": "Salı", "salı": "Salı",
+        "wednesday": "Çarşamba", "wed": "Çarşamba", "çarşamba": "Çarşamba",
+        "thursday": "Perşembe", "thu": "Perşembe", "perşembe": "Perşembe",
+        "friday": "Cuma", "fri": "Cuma", "cuma": "Cuma",
+        "saturday": "Cumartesi", "sunday": "Pazar"
     }
     
     return mapping.get(g, None)
@@ -49,8 +48,7 @@ def process_data():
         isim = (item.get("isim") or item.get("title") or item.get("name") or item.get("DersAdi") or "").strip()
         hoca = (item.get("hoca") or item.get("instructor") or item.get("OgretimUyesi") or "").strip()
         
-        # --- DÜZELTME BURADA YAPILDI ---
-        # Hem 'Detay' hem 'Detail' kelimesini kontrol ediyoruz
+        # Sınıf "Detay" veya "Detail" kontrolü (4. Sınıf filtresi için)
         raw_sinif = str(item.get("sinif") or item.get("Sinif") or item.get("Class") or "").strip()
         is_senior = "Detay" in raw_sinif or "Detail" in raw_sinif
 
@@ -92,7 +90,7 @@ def process_data():
     
     return json.dumps(clean_data, ensure_ascii=False), json.dumps(sorted_subjects, ensure_ascii=False)
 
-# HTML KODU (AYNI KALDI)
+# HTML ŞABLONU (JS Tarafına Otomatik Düzeltici Eklendi)
 html_template = """
 <!DOCTYPE html>
 <html lang="tr">
@@ -108,6 +106,7 @@ html_template = """
         * { box-sizing: border-box; }
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', sans-serif; background: var(--bg); color: #e0e0e0; }
         
+        /* GİRİŞ EKRANI */
         #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f0f0f; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.6s ease, visibility 0.6s; }
         .login-box { width: 360px; padding: 40px; background: #1a1a1a; border: 1px solid #333; border-radius: 12px; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
         .login-logo { font-size: 40px; font-weight: 800; color: var(--blue); letter-spacing: -2px; margin-bottom: 5px; }
@@ -116,10 +115,13 @@ html_template = """
         .btn-login-main { width: 100%; padding: 12px; background: white; color: black; border: none; border-radius: 6px; font-weight: bold; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: transform 0.2s, background 0.2s; }
         .btn-login-main:hover { background: #e0e0e0; transform: scale(1.02); }
         
+        /* ANA UYGULAMA (GİZLİ BAŞLAR) */
         #app { display: flex; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease; }
         
+        /* SIDEBAR & UI ELEMENTS */
         #sidebar { width: var(--sidebar-width); min-width: var(--sidebar-width); background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 50; }
         
+        /* User Profile Area in Sidebar */
         #user-profile-bar { padding: 10px 15px; background: #151515; border-bottom: 1px solid #333; display:flex; align-items:center; gap:10px; font-size:12px; }
         #user-avatar { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--blue); }
         #user-name { flex-grow: 1; font-weight: bold; color: #ddd; }
@@ -286,6 +288,29 @@ html_template = """
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
+        // İngilizce günleri Türkçeye çeviren yardımcı fonksiyon (Migration)
+        function normalizeProgDays(prog) {
+            if (!prog) return {};
+            const map = {
+                "Monday": "Pazartesi", "Mon": "Pazartesi",
+                "Tuesday": "Salı", "Tue": "Salı",
+                "Wednesday": "Çarşamba", "Wed": "Çarşamba",
+                "Thursday": "Perşembe", "Thu": "Perşembe",
+                "Friday": "Cuma", "Fri": "Cuma"
+            };
+            Object.values(prog).forEach(c => {
+                if(c.s) {
+                    c.s.forEach(slot => {
+                        // Eğer gün İngilizce ise Türkçeye çevir
+                        if (map[slot.d]) {
+                            slot.d = map[slot.d];
+                        }
+                    });
+                }
+            });
+            return prog;
+        }
+
         // Login
         document.getElementById('btn-google-login').addEventListener('click', () => {
             document.getElementById('login-status').innerText = "Google'a bağlanılıyor...";
@@ -321,8 +346,9 @@ html_template = """
                 
                 if (localData) {
                     try {
-                        window.MY_PROG = JSON.parse(localData);
-                        console.log("⚡ Veri yerel hafızadan yüklendi (Hızlandırıldı).");
+                        let parsed = JSON.parse(localData);
+                        window.MY_PROG = normalizeProgDays(parsed); // Düzeltmeyi burada yapıyoruz
+                        console.log("⚡ Veri yerel hafızadan yüklendi ve günler düzeltildi.");
                         window.refreshUI();
                     } catch(e) { console.error("Local data bozuk"); }
                 }
@@ -334,7 +360,9 @@ html_template = """
                 try {
                     const docSnap = await getDoc(docRef);
                     if (docSnap.exists()) {
-                        const cloudData = docSnap.data().program || {};
+                        let cloudData = docSnap.data().program || {};
+                        cloudData = normalizeProgDays(cloudData); // Düzeltmeyi burada da yapıyoruz
+                        
                         // Eğer Local'deki veri ile Cloud farklıysa, Cloud'u esas al (veya birleştir)
                         // Şimdilik Cloud'u esas alıyoruz, çünkü en güvenlisi o.
                         if (JSON.stringify(cloudData) !== JSON.stringify(window.MY_PROG)) {
@@ -342,7 +370,7 @@ html_template = """
                             window.refreshUI();
                             // Local'i de güncelle ki bir sonraki giriş hızlı olsun
                             localStorage.setItem(localKey, JSON.stringify(window.MY_PROG));
-                            console.log("☁️ Veri buluttan güncellendi.");
+                            console.log("☁️ Veri buluttan güncellendi ve günler düzeltildi.");
                         }
                     }
                     syncLabel.innerText = "☁️ Hazır";
@@ -411,7 +439,7 @@ html_template = """
         sel.appendChild(frag);
         document.getElementById('db-stat').innerText = `v14 • ${RAW_DB.length}`;
         
-        // --- 4. SINIF FİLTRESİ AYARI (DÜZELTİLDİ) ---
+        // --- 4. SINIF FİLTRESİ AYARI ---
         // 1. Önce tercihi oku
         const isSeniorPref = localStorage.getItem("dam_show_senior") === "true";
         // 2. Checkbox'ı ayarla
@@ -480,14 +508,12 @@ html_template = """
 
             // --- 4. SINIF FİLTRESİ ---
             // Senior GÖSTERME (Checkbox False ise) -> Senior olanları filtrele
-            // Yani, eğer kutucuk SEÇİLİ DEĞİLSE, senior olanları ÇIKAR.
             if (!showSenior) {
                 hits = hits.filter(c => c.lv4 !== true);
             }
-            // Kutucuk SEÇİLİ İSE hepsini göster (bir şey yapma)
 
             if (clean) {
-                 // DÜZELTME: Çakışma kontrolü artık TÜM programdaki derslerle yapılıyor (Sadece SABİT değil)
+                 // Çakışma kontrolü TÜM programdaki derslerle yapılıyor
                  const fixed = Object.values(window.MY_PROG); 
                  if (fixed.length > 0) {
                      hits = hits.filter(cand => {
@@ -656,7 +682,7 @@ def build():
     with open(OUTPUT_HTML, "w", encoding="utf-8") as f:
         f.write(html_template.replace("{db_placeholder}", data_json).replace("{subj_placeholder}", subj_json))
     
-    print(f"✅ {OUTPUT_HTML} oluşturuldu! Artık tüm gün isimleri Türkçe, filtreler düzgün ve 4. sınıf (Detail/Detay) filtresi çalışıyor.")
+    print(f"✅ {OUTPUT_HTML} oluşturuldu!")
 
 if __name__ == "__main__":
     build()
