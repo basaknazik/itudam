@@ -6,11 +6,9 @@ import os
 INPUT_JSON = "dersler.json"
 OUTPUT_HTML = "index.html"
 
-# Günleri İngilizce/Kısaltma -> Türkçe Standart formatına çeviren fonksiyon
 def tr_gun_yap(gun_adi):
     if not gun_adi: return None
     g = str(gun_adi).lower().strip()
-    
     mapping = {
         "monday": "Pazartesi", "mon": "Pazartesi", "pazartesi": "Pazartesi",
         "tuesday": "Salı", "tue": "Salı", "salı": "Salı",
@@ -19,37 +17,31 @@ def tr_gun_yap(gun_adi):
         "friday": "Cuma", "fri": "Cuma", "cuma": "Cuma",
         "saturday": "Cumartesi", "sunday": "Pazar"
     }
-    
     return mapping.get(g, None)
 
 def process_data():
     if not os.path.exists(INPUT_JSON):
-        print(f"❌ HATA: {INPUT_JSON} dosyası bulunamadı! JSON dosyasının kodla aynı klasörde olduğundan emin ol.")
+        print(f"❌ HATA: {INPUT_JSON} bulunamadı!")
         return None, None
 
     with open(INPUT_JSON, "r", encoding="utf-8") as f:
-        try:
-            raw_data = json.load(f)
-        except json.JSONDecodeError:
-            print("❌ HATA: JSON dosyası bozuk veya formatı hatalı.")
-            return None, None
+        try: raw_data = json.load(f)
+        except: return None, None
 
     courses_map = {}
     subjects = set()
 
     for item in raw_data:
-        # Başlık satırını atla
-        raw_crn = str(item.get("crn") or item.get("CRN") or "").strip()
-        if raw_crn.upper() == "CRN" or not raw_crn:
-            continue
+        raw_crn = str(item.get("crn") or "").strip()
+        if raw_crn.upper() == "CRN" or not raw_crn: continue
 
         crn = raw_crn
-        kod = (item.get("kod") or item.get("code") or item.get("DersKodu") or "").strip()
-        isim = (item.get("isim") or item.get("title") or item.get("name") or item.get("DersAdi") or "").strip()
-        hoca = (item.get("hoca") or item.get("instructor") or item.get("OgretimUyesi") or "").strip()
+        kod = (item.get("kod") or "").strip()
+        isim = (item.get("isim") or "").strip()
+        hoca = (item.get("hoca") or "").strip()
+        mekan = (item.get("mekan") or "").strip()
         
-        # Sınıf "Detay" veya "Detail" kontrolü (4. Sınıf filtresi için)
-        raw_sinif = str(item.get("sinif") or item.get("Sinif") or item.get("Class") or "").strip()
+        raw_sinif = str(item.get("sinif") or "").strip()
         is_senior = "Detay" in raw_sinif or "Detail" in raw_sinif
 
         if crn not in courses_map:
@@ -57,7 +49,8 @@ def process_data():
                 "id": crn, 
                 "k": kod, 
                 "n": isim, 
-                "i": hoca, 
+                "i": hoca,
+                "m": mekan,
                 "s": [],        
                 "t": "SABIT",
                 "lv4": is_senior 
@@ -65,32 +58,23 @@ def process_data():
             subj = kod.split(" ")[0]
             if len(subj) > 1: subjects.add(subj)
         else:
-            if is_senior:
-                courses_map[crn]["lv4"] = True
+            if is_senior: courses_map[crn]["lv4"] = True
 
-        # Gün ve Saat İşleme
-        raw_gun = item.get("gun") or item.get("day") or item.get("Gun")
+        raw_gun = item.get("gun")
         gun_tr = tr_gun_yap(raw_gun) 
-
-        bas = item.get("bas") or item.get("start") or item.get("BaslangicSaati")
-        bit = item.get("bit") or item.get("end") or item.get("BitisSaati")
+        bas = item.get("bas")
+        bit = item.get("bit")
 
         if gun_tr and bas is not None:
             try:
                 b_val = float(bas)
                 e_val = float(bit)
                 courses_map[crn]["s"].append({ "d": gun_tr, "b": b_val, "e": e_val })
-            except (ValueError, TypeError):
-                pass 
+            except: pass 
 
-    clean_data = list(courses_map.values())
-    sorted_subjects = sorted(list(subjects))
-    
-    print(f"📊 İşlenen Ders Sayısı: {len(clean_data)}")
-    
-    return json.dumps(clean_data, ensure_ascii=False), json.dumps(sorted_subjects, ensure_ascii=False)
+    return json.dumps(list(courses_map.values()), ensure_ascii=False), json.dumps(sorted(list(subjects)), ensure_ascii=False)
 
-# HTML ŞABLONU (JS Tarafına Otomatik Düzeltici Eklendi)
+# HTML ŞABLONU
 html_template = """
 <!DOCTYPE html>
 <html lang="tr">
@@ -106,22 +90,15 @@ html_template = """
         * { box-sizing: border-box; }
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', sans-serif; background: var(--bg); color: #e0e0e0; }
         
-        /* GİRİŞ EKRANI */
         #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f0f0f; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.6s ease, visibility 0.6s; }
         .login-box { width: 360px; padding: 40px; background: #1a1a1a; border: 1px solid #333; border-radius: 12px; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
         .login-logo { font-size: 40px; font-weight: 800; color: var(--blue); letter-spacing: -2px; margin-bottom: 5px; }
         .login-sub { font-size: 12px; color: #666; margin-bottom: 30px; font-family: 'JetBrains Mono'; }
-        
         .btn-login-main { width: 100%; padding: 12px; background: white; color: black; border: none; border-radius: 6px; font-weight: bold; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: transform 0.2s, background 0.2s; }
         .btn-login-main:hover { background: #e0e0e0; transform: scale(1.02); }
         
-        /* ANA UYGULAMA (GİZLİ BAŞLAR) */
         #app { display: flex; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease; }
-        
-        /* SIDEBAR & UI ELEMENTS */
         #sidebar { width: var(--sidebar-width); min-width: var(--sidebar-width); background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 50; }
-        
-        /* User Profile Area in Sidebar */
         #user-profile-bar { padding: 10px 15px; background: #151515; border-bottom: 1px solid #333; display:flex; align-items:center; gap:10px; font-size:12px; }
         #user-avatar { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--blue); }
         #user-name { flex-grow: 1; font-weight: bold; color: #ddd; }
@@ -161,7 +138,6 @@ html_template = """
         .btn-toggle { font-size: 10px; padding: 3px 8px; border-radius: 3px; cursor: pointer; text-transform: uppercase; font-weight: bold; border: 1px solid #444; background: transparent; color: #aaa; transition: 0.2s; }
         .card.SABIT .btn-toggle { color: var(--blue); border-color: var(--blue); } .card.ADAY .btn-toggle { color: var(--orange); border-color: var(--orange); }
         .btn-del { background: transparent; border: none; color: #666; cursor: pointer; font-size: 16px; font-weight: bold; } .btn-del:hover { color: var(--red); }
-        .btn-add-mini { background: var(--green); color: white; border: none; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; }
         
         #footer { padding: 15px; border-top: 1px solid var(--border); background: #181818; }
         .bm-btn { display: block; width: 100%; text-align: center; padding: 10px; background: #252526; border: 2px dashed var(--purple); color: var(--purple); border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 12px; transition: 0.2s; }
@@ -174,8 +150,14 @@ html_template = """
         .g-head { background: #222; text-align: center; padding: 5px; font-weight: bold; font-size: 12px; position: sticky; top:0; z-index: 10; border-bottom: 2px solid #333; }
         .g-time { text-align: right; padding-right: 5px; color: #666; font-size: 10px; border-right: 1px solid #333; }
         .g-line { grid-column: 2 / 7; border-bottom: 1px solid #222; }
-        .box { background: #253341; border-left: 3px solid var(--blue); font-size: 10px; padding: 2px 4px; overflow: hidden; position: relative; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.4); transition: 0.1s; border-radius: 3px; }
+        .box { background: #253341; border-left: 3px solid var(--blue); font-size: 10px; padding: 2px 4px; overflow: hidden; position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.4); transition: 0.1s; border-radius: 3px; }
         .box:hover { z-index: 100 !important; transform: scale(1.05); box-shadow: 0 5px 10px rgba(0,0,0,0.6); }
+        
+        /* YENİ: Çarpı İşareti Stili */
+        .box-close { position: absolute; top: 2px; right: 2px; width: 16px; height: 16px; line-height: 14px; text-align: center; background: rgba(0,0,0,0.3); color: #fff; font-weight: bold; border-radius: 3px; cursor: pointer; font-size: 12px; display: none; }
+        .box:hover .box-close { display: block; }
+        .box-close:hover { background: var(--red); }
+        
         .box.ADAY { background: #3d2e14; border-left-color: var(--orange); } .box.CONFLICT { background: #3d1414; border-left-color: var(--red); border: 1px solid var(--red); }
         #loading { display: none; text-align: center; padding: 10px; font-size: 12px; color: var(--blue); }
         
@@ -230,6 +212,11 @@ html_template = """
                 <label class="checkbox-row" style="color: var(--orange); font-weight:500;">
                     <input type="checkbox" id="chk-senior"> 🎓 4. Sınıf / Bitirme Derslerini Göster
                 </label>
+                
+                <label class="checkbox-row" style="color: var(--blue);">
+                    <input type="checkbox" id="chk-online"> 🌐 Sadece Online Dersler (Virtual/Sanal)
+                </label>
+
                 <button class="btn-find" onclick="runFilter()">🔍 LİSTELE</button>
                 <div id="loading">İşleniyor...</div>
             </div>
@@ -268,7 +255,6 @@ html_template = """
     import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
     import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // --- SENİN FIREBASE CONFIG BURADA OLMALI ---
     const firebaseConfig = {
         apiKey: "AIzaSyC7tlSzzYkbI3L66esuBTepTawbTKGJHXI",
         authDomain: "dam-itu.firebaseapp.com",
@@ -288,7 +274,6 @@ html_template = """
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // İngilizce günleri Türkçeye çeviren yardımcı fonksiyon (Migration)
         function normalizeProgDays(prog) {
             if (!prog) return {};
             const map = {
@@ -301,7 +286,6 @@ html_template = """
             Object.values(prog).forEach(c => {
                 if(c.s) {
                     c.s.forEach(slot => {
-                        // Eğer gün İngilizce ise Türkçeye çevir
                         if (map[slot.d]) {
                             slot.d = map[slot.d];
                         }
@@ -311,7 +295,6 @@ html_template = """
             return prog;
         }
 
-        // Login
         document.getElementById('btn-google-login').addEventListener('click', () => {
             document.getElementById('login-status').innerText = "Google'a bağlanılıyor...";
             signInWithPopup(auth, provider).catch((error) => {
@@ -320,15 +303,12 @@ html_template = """
             });
         });
 
-        // Logout
         window.appLogout = () => {
             signOut(auth).then(() => location.reload());
         };
 
-        // --- OPTİMİZASYON 1: AKILLI YÜKLEME (Hybrid Loading) ---
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                // UI Hazırlıkları
                 document.getElementById('login-overlay').style.opacity = '0';
                 setTimeout(() => document.getElementById('login-overlay').style.visibility = 'hidden', 600);
                 document.getElementById('app').style.opacity = '1';
@@ -340,20 +320,18 @@ html_template = """
 
                 const syncLabel = document.getElementById('cloud-sync');
                 
-                // ADIM 1: Önce Işık Hızıyla LocalStorage'dan Oku (Firebase'i bekleme)
                 const localKey = `itu_dam_data_${user.uid}`;
                 const localData = localStorage.getItem(localKey);
                 
                 if (localData) {
                     try {
                         let parsed = JSON.parse(localData);
-                        window.MY_PROG = normalizeProgDays(parsed); // Düzeltmeyi burada yapıyoruz
-                        console.log("⚡ Veri yerel hafızadan yüklendi ve günler düzeltildi.");
+                        window.MY_PROG = normalizeProgDays(parsed); 
+                        console.log("⚡ Veri yerel hafızadan yüklendi.");
                         window.refreshUI();
                     } catch(e) { console.error("Local data bozuk"); }
                 }
 
-                // ADIM 2: Arka Planda Sessizce Firebase'i Kontrol Et (Senkronizasyon)
                 syncLabel.innerText = "☁️ Senkronize ediliyor...";
                 const docRef = doc(db, "users", user.uid);
                 
@@ -361,60 +339,46 @@ html_template = """
                     const docSnap = await getDoc(docRef);
                     if (docSnap.exists()) {
                         let cloudData = docSnap.data().program || {};
-                        cloudData = normalizeProgDays(cloudData); // Düzeltmeyi burada da yapıyoruz
+                        cloudData = normalizeProgDays(cloudData); 
                         
-                        // Eğer Local'deki veri ile Cloud farklıysa, Cloud'u esas al (veya birleştir)
-                        // Şimdilik Cloud'u esas alıyoruz, çünkü en güvenlisi o.
                         if (JSON.stringify(cloudData) !== JSON.stringify(window.MY_PROG)) {
                             window.MY_PROG = cloudData;
                             window.refreshUI();
-                            // Local'i de güncelle ki bir sonraki giriş hızlı olsun
                             localStorage.setItem(localKey, JSON.stringify(window.MY_PROG));
-                            console.log("☁️ Veri buluttan güncellendi ve günler düzeltildi.");
+                            console.log("☁️ Veri buluttan güncellendi.");
                         }
                     }
                     syncLabel.innerText = "☁️ Hazır";
                 } catch(e) {
-                    console.error("Firebase okuma hatası:", e);
                     syncLabel.innerText = "⚠️ Offline Mod";
                 }
 
-                // --- OPTİMİZASYON 2: GECİKMELİ KAYIT (DEBOUNCE) ---
-                // Kullanıcı her tıkladığında değil, durduğunda kaydet.
                 let saveTimeout;
                 window.triggerSave = () => {
                     syncLabel.innerText = "⏳ Kaydedilecek...";
-                    
-                    // 1. Önce LocalStorage'a hemen yaz (Veri kaybını önler)
                     localStorage.setItem(localKey, JSON.stringify(window.MY_PROG));
                     
-                    // 2. Firebase kaydını 3 saniye ertele (Fren Mekanizması)
                     clearTimeout(saveTimeout);
                     saveTimeout = setTimeout(async () => {
                         syncLabel.innerText = "🔄 Buluta yazılıyor...";
                         try {
                             await setDoc(doc(db, "users", user.uid), { 
                                 program: window.MY_PROG,
-                                updated: new Date(),
-                                // Gizlilik dostu meta veri (isteğe bağlı)
-                                // email: user.email 
+                                updated: new Date()
                             });
                             syncLabel.innerText = "☁️ Kaydedildi";
                             setTimeout(() => syncLabel.innerText = "☁️ Hazır", 2000);
                         } catch(e) {
-                            console.error("Kayıt hatası:", e);
                             syncLabel.innerText = "⚠️ Kayıt Hatası";
                         }
-                    }, 3000); // 3 Saniye bekleme süresi
+                    }, 3000); 
                 };
-
             }
         });
     }
 </script>
 
 <script>
-    // --- CORE UYGULAMA MANTIĞI ---
     const RAW_DB = {db_placeholder};
     const SUBJ_LIST = {subj_placeholder};
     
@@ -424,10 +388,8 @@ html_template = """
     window.NETWORK = null;
     const DAYS = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma"];
 
-    // Placeholder save function (Firebase yüklenene kadar hata vermesin)
     window.triggerSave = function() {}; 
 
-    // --- INIT FONKSİYONU ---
     function init() {
         const sel = document.getElementById('sel-subj');
         const frag = document.createDocumentFragment();
@@ -439,14 +401,10 @@ html_template = """
         sel.appendChild(frag);
         document.getElementById('db-stat').innerText = `v14 • ${RAW_DB.length}`;
         
-        // --- 4. SINIF FİLTRESİ AYARI ---
-        // 1. Önce tercihi oku
         const isSeniorPref = localStorage.getItem("dam_show_senior") === "true";
-        // 2. Checkbox'ı ayarla
         const chk = document.getElementById('chk-senior');
         if(chk) {
             chk.checked = isSeniorPref;
-            // 3. Listener ekle (Değişken çakışması olmasın diye buraya aldık)
             chk.addEventListener('change', (e) => {
                 localStorage.setItem("dam_show_senior", e.target.checked);
                 runFilter(); 
@@ -456,7 +414,6 @@ html_template = """
         refreshUI();
     }
 
-    // Fonksiyonları window'a sabitleyelim (Garanti yöntem)
     window.setMode = function(mode) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -478,7 +435,6 @@ html_template = """
             const hits = [];
             for (let i = 0; i < RAW_DB.length; i++) {
                 const c = RAW_DB[i];
-                // Arama Mantığı
                 if (!window.MY_PROG[c.id] && (c.k.includes(val) || c.id.includes(val) || c.n.toUpperCase().includes(val))) {
                     hits.push(c);
                     if (hits.length >= 50) break;
@@ -491,10 +447,11 @@ html_template = """
     window.runFilter = function() {
         const subj = document.getElementById('sel-subj').value;
         const clean = document.getElementById('chk-clean').checked;
-        
-        // Checkbox güvenli seçim
         const chkSenior = document.getElementById('chk-senior');
         const showSenior = chkSenior ? chkSenior.checked : false;
+        
+        const chkOnline = document.getElementById('chk-online');
+        const onlyOnline = chkOnline ? chkOnline.checked : false;
 
         const loader = document.getElementById('loading');
         loader.style.display = 'block';
@@ -503,17 +460,18 @@ html_template = """
             let hits = [];
             if (subj === "ALL") hits = RAW_DB; else hits = RAW_DB.filter(c => c.k.startsWith(subj));
             
-            // Zaten ekli olanları gizle
             hits = hits.filter(c => !window.MY_PROG[c.id]);
 
-            // --- 4. SINIF FİLTRESİ ---
-            // Senior GÖSTERME (Checkbox False ise) -> Senior olanları filtrele
-            if (!showSenior) {
-                hits = hits.filter(c => c.lv4 !== true);
+            if (!showSenior) hits = hits.filter(c => c.lv4 !== true);
+
+            if (onlyOnline) {
+                hits = hits.filter(c => {
+                    const m = (c.m || "").toUpperCase();
+                    return m.includes("VIRTUAL") || m.includes("SANAL");
+                });
             }
 
             if (clean) {
-                 // Çakışma kontrolü TÜM programdaki derslerle yapılıyor
                  const fixed = Object.values(window.MY_PROG); 
                  if (fixed.length > 0) {
                      hits = hits.filter(cand => {
@@ -637,7 +595,15 @@ html_template = """
             div.style.gridRow = `${start} / ${end}`; div.style.gridColumn = col;
             div.style.marginLeft = (overlap * 10) + "px"; div.style.marginTop = (overlap * 10) + "px";
             div.style.width = `calc(100% - ${overlap * 10}px)`; div.style.zIndex = 10 + overlap;
-            div.innerHTML = `<div style="font-weight:bold">${slot.k}</div><div style="opacity:0.8">${slot.n.substring(0,15)}</div>`;
+            
+            // DÜZELTME: onclick kutudan kaldırıldı, X işaretine eklendi.
+            div.title = "Ders";
+            div.innerHTML = `
+                <div class="box-close" onclick="event.stopPropagation(); window.remove('${slot.id}')">×</div>
+                <div style="font-weight:bold; margin-right:10px">${slot.k} <span style="font-size:9px; color:#ddd; opacity:0.8">(${slot.id})</span></div>
+                <div style="opacity:0.8">${slot.n.substring(0,15)}</div>
+            `;
+            
             grid.appendChild(div); placed.push(slot);
         });
     }
@@ -667,14 +633,12 @@ html_template = """
         btn.innerText = list.length ? `⚡ ${Object.values(window.MY_PROG).filter(c=>c.t==="SABIT").length} CRN Hazır` : "⚠️ Liste Boş";
     }
 
-    // Başlat
     init();
 </script>
 </body>
 </html>
 """
 
-# --- 3. INŞAAT ---
 def build():
     data_json, subj_json = process_data()
     if not data_json: return
