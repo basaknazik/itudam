@@ -346,9 +346,9 @@
         "isim": "Atatürk İlk & İnkılap Trh I",
         "hoca": "-",
         "mekan": "Virtual (Online)",
-        "gun": "Monday",
-        "bas": 11.5,
-        "bit": 13.483333333333333,
+        "gun": "-",
+        "bas": null,
+        "bit": null,
         "sinif": "-"
     },
     {
@@ -2074,8 +2074,19 @@
         "hoca": "Ahmet Öztopal ,Cemre Sonuç",
         "mekan": "Physical (Face to face)",
         "gun": "Monday",
-        "bas": 14.5,
-        "bit": 17.483333333333334,
+        "bas": 11.5,
+        "bit": 14.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "25248",
+        "kod": "BIL 100E",
+        "isim": "Intr.to Prog.Language(PYTHON)",
+        "hoca": "-",
+        "mekan": "Physical (Face to face)",
+        "gun": "-",
+        "bas": null,
+        "bit": null,
         "sinif": "-"
     },
     {
@@ -2107,8 +2118,8 @@
         "hoca": "Ahmet Öztopal",
         "mekan": "Physical (Face to face)",
         "gun": "Monday",
-        "bas": 11.5,
-        "bit": 14.483333333333333,
+        "bas": 14.5,
+        "bit": 17.483333333333334,
         "sinif": "-"
     },
     {
@@ -2215,7 +2226,7 @@
         "kod": "BIL 113E",
         "isim": "Intr.to Sci& Eng.Comp.(MATLAB)",
         "hoca": "Zehra Atik",
-        "mekan": "Physical (Face to face)",
+        "mekan": "Virtual (Online)",
         "gun": "Friday",
         "bas": 14.5,
         "bit": 17.483333333333334,
@@ -2263,6 +2274,17 @@
         "gun": "Monday",
         "bas": 13.5,
         "bit": 16.483333333333334,
+        "sinif": "-"
+    },
+    {
+        "crn": "25249",
+        "kod": "BIL 113E",
+        "isim": "Intr.to Sci& Eng.Comp.(MATLAB)",
+        "hoca": "-",
+        "mekan": "Physical (Face to face)",
+        "gun": "-",
+        "bas": null,
+        "bit": null,
         "sinif": "-"
     },
     {
@@ -2643,7 +2665,7 @@
         "crn": "23735",
         "kod": "BLG 242E",
         "isim": "Logic Circuits Laboratory",
-        "hoca": "Mustafa Ersel Kamaşak",
+        "hoca": "Muhammet Alkan",
         "mekan": "Physical (Face to face)",
         "gun": "Tuesday",
         "bas": 13.5,
@@ -2654,7 +2676,7 @@
         "crn": "23738",
         "kod": "BLG 242E",
         "isim": "Logic Circuits Laboratory",
-        "hoca": "Mustafa Ersel Kamaşak",
+        "hoca": "Muhammet Alkan",
         "mekan": "Physical (Face to face)",
         "gun": "Monday",
         "bas": 13.5,
@@ -2934,6 +2956,17 @@
         "gun": "Tuesday",
         "bas": 8.5,
         "bit": 10.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "25266",
+        "kod": "BLG 481E",
+        "isim": "Al Accelerators Lab.",
+        "hoca": "-",
+        "mekan": "Physical (Face to face)",
+        "gun": "-",
+        "bas": null,
+        "bit": null,
         "sinif": "-"
     },
     {
@@ -4103,6 +4136,17 @@
         "sinif": "-"
     },
     {
+        "crn": "25285",
+        "kod": "CAB 4102",
+        "isim": "Keman VIII",
+        "hoca": "Ibragım Orazov",
+        "mekan": "Physical (Face to face)",
+        "gun": "Wednesday",
+        "bas": 13.5,
+        "bit": 15.483333333333333,
+        "sinif": "-"
+    },
+    {
         "crn": "21565",
         "kod": "CAB 416",
         "isim": "Mey VIII",
@@ -4224,6 +4268,17 @@
         "sinif": "Detail"
     },
     {
+        "crn": "25284",
+        "kod": "CAB 496",
+        "isim": "Viyolonsel VIII",
+        "hoca": "Cenk Öztürk",
+        "mekan": "Physical (Face to face)",
+        "gun": "Wednesday",
+        "bas": 13.5,
+        "bit": 15.483333333333333,
+        "sinif": "-"
+    },
+    {
         "crn": "21589",
         "kod": "CAB 730",
         "isim": "Uslup Tavır ve Yorum IV",
@@ -4466,10 +4521,10 @@
         "sinif": "-"
     },
     {
-        "crn": "22534",
-        "kod": "CAB 761",
-        "isim": "Toplu Uygulama VII (Orkestra)",
-        "hoca": "Haydar Tanrıverdi",
+        "crn": "22507",
+        "kod": "CAB 762",
+        "isim": "Toplu Uygulama VIII (Orkestra)",
+        "hoca": "Barış Kerem Bahar",
         "mekan": "Physical (Face to face)",
         "gun": "Monday",
         "bas": 10.5,
@@ -4477,10 +4532,10 @@
         "sinif": "-"
     },
     {
-        "crn": "22534",
-        "kod": "CAB 761",
-        "isim": "Toplu Uygulama VII (Orkestra)",
-        "hoca": "Haydar Tanrıverdi",
+        "crn": "22507",
+        "kod": "CAB 762",
+        "isim": "Toplu Uygulama VIII (Orkestra)",
+        "hoca": "Barış Kerem Bahar",
         "mekan": "Physical (Face to face)",
         "gun": "Wednesday",
         "bas": 10.5,
@@ -4488,10 +4543,10 @@
         "sinif": "-"
     },
     {
-        "crn": "22507",
-        "kod": "CAB 762",
-        "isim": "Toplu Uygulama VIII (Orkestra)",
-        "hoca": "Barış Kerem Bahar",
+        "crn": "25273",
+        "kod": "CAB 764",
+        "isim": "Toplu Uygulama VIII (THM)",
+        "hoca": "Haydar Tanrıverdi",
         "mekan": "Physical (Face to face)",
         "gun": "Monday",
         "bas": 10.5,
@@ -4499,10 +4554,10 @@
         "sinif": "-"
     },
     {
-        "crn": "22507",
-        "kod": "CAB 762",
-        "isim": "Toplu Uygulama VIII (Orkestra)",
-        "hoca": "Barış Kerem Bahar",
+        "crn": "25273",
+        "kod": "CAB 764",
+        "isim": "Toplu Uygulama VIII (THM)",
+        "hoca": "Haydar Tanrıverdi",
         "mekan": "Physical (Face to face)",
         "gun": "Wednesday",
         "bas": 10.5,
@@ -4616,7 +4671,7 @@
         "mekan": "Physical (Face to face)",
         "gun": "Wednesday",
         "bas": 9.5,
-        "bit": 13.483333333333333,
+        "bit": 12.483333333333333,
         "sinif": "-"
     },
     {
@@ -4627,14 +4682,14 @@
         "mekan": "Physical (Face to face)",
         "gun": "Friday",
         "bas": 14.5,
-        "bit": 15.483333333333333,
+        "bit": 16.483333333333334,
         "sinif": "-"
     },
     {
         "crn": "25205",
         "kod": "CEN 112E",
         "isim": "Discrete Mathematics",
-        "hoca": "-",
+        "hoca": "Burak Berk Üstündağ",
         "mekan": "Physical (Face to face)",
         "gun": "Friday",
         "bas": 8.5,
@@ -4667,7 +4722,7 @@
         "crn": "25208",
         "kod": "CEN 242E",
         "isim": "Logic Circuits Laboratory",
-        "hoca": "-",
+        "hoca": "Nizamettin Aydın",
         "mekan": "Physical (Face to face)",
         "gun": "Thursday",
         "bas": 13.5,
@@ -4689,6 +4744,17 @@
         "crn": "25210",
         "kod": "CEN 311E",
         "isim": "Formal Languages and Automata",
+        "hoca": "Nizamettin Aydın",
+        "mekan": "Physical (Face to face)",
+        "gun": "Wednesday",
+        "bas": 12.5,
+        "bit": 15.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "25211",
+        "kod": "CEN 312E",
+        "isim": "Computer Operating Systems",
         "hoca": "-",
         "mekan": "Physical (Face to face)",
         "gun": "-",
@@ -4697,15 +4763,59 @@
         "sinif": "-"
     },
     {
-        "crn": "25211",
-        "kod": "CEN 312E",
-        "isim": "Computer Operating Systems",
-        "hoca": "Erke Arıbaş",
+        "crn": "25250",
+        "kod": "CEN 322E",
+        "isim": "Computer Architecture",
+        "hoca": "-",
         "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
-        "bas": 9.5,
-        "bit": 12.483333333333333,
+        "gun": "-",
+        "bas": null,
+        "bit": null,
         "sinif": "-"
+    },
+    {
+        "crn": "25251",
+        "kod": "CEN 336E",
+        "isim": "Analysis of Algorithms II",
+        "hoca": "-",
+        "mekan": "Physical (Face to face)",
+        "gun": "-",
+        "bas": null,
+        "bit": null,
+        "sinif": "-"
+    },
+    {
+        "crn": "25252",
+        "kod": "CEN 354E",
+        "isim": "Signal&Systems for Comp.Eng.",
+        "hoca": "İbrahim Papila",
+        "mekan": "Physical (Face to face)",
+        "gun": "Friday",
+        "bas": 8.5,
+        "bit": 11.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "25253",
+        "kod": "CEN 374E",
+        "isim": "Tech. Communic.for Comp.Eng.",
+        "hoca": "-",
+        "mekan": "Physical (Face to face)",
+        "gun": "-",
+        "bas": null,
+        "bit": null,
+        "sinif": "-"
+    },
+    {
+        "crn": "25254",
+        "kod": "CEN 4902E",
+        "isim": "Computer Engineering Design II",
+        "hoca": "-",
+        "mekan": "Physical (Face to face)",
+        "gun": "-",
+        "bas": null,
+        "bit": null,
+        "sinif": "Detail"
     },
     {
         "crn": "CRN",
@@ -4881,6 +4991,17 @@
         "gun": "Monday",
         "bas": 13.5,
         "bit": 17.483333333333334,
+        "sinif": "-"
+    },
+    {
+        "crn": "25243",
+        "kod": "CEV 234E",
+        "isim": "Soil Mechanics",
+        "hoca": "Merve Akbaş",
+        "mekan": "Physical (Face to face)",
+        "gun": "Thursday",
+        "bas": 11.5,
+        "bit": 13.483333333333333,
         "sinif": "-"
     },
     {
@@ -5230,7 +5351,7 @@
         "isim": "Environmental Law",
         "hoca": "Derya Yüksel İmer",
         "mekan": "Physical (Face to face)",
-        "gun": "Thursday",
+        "gun": "Monday",
         "bas": 13.5,
         "bit": 15.483333333333333,
         "sinif": "Detail"
@@ -6380,6 +6501,28 @@
         "sinif": "-"
     },
     {
+        "crn": "25258",
+        "kod": "DAN 102E",
+        "isim": "Entrepreneurship and Career Advising",
+        "hoca": "Murat Durmaz",
+        "mekan": "Physical (Face to face)",
+        "gun": "Wednesday",
+        "bas": 15.5,
+        "bit": 17.483333333333334,
+        "sinif": "-"
+    },
+    {
+        "crn": "25289",
+        "kod": "DAN 102E",
+        "isim": "Entrepreneurship and Career Advising",
+        "hoca": "Deniz Tunçalp",
+        "mekan": "Physical (Face to face)",
+        "gun": "Wednesday",
+        "bas": 15.5,
+        "bit": 17.483333333333334,
+        "sinif": "-"
+    },
+    {
         "crn": "CRN",
         "kod": "Course Code",
         "isim": "Course Title",
@@ -6460,7 +6603,7 @@
         "crn": "24132",
         "kod": "DEN 310E",
         "isim": "Resistance and Propulsion",
-        "hoca": "Ömer Kemal Kınacı ,Burcu Erbaş",
+        "hoca": "Burcu Erbaş",
         "mekan": "Physical (Face to face)",
         "gun": "Monday",
         "bas": 10.5,
@@ -6578,6 +6721,17 @@
         "sinif": "-"
     },
     {
+        "crn": "25287",
+        "kod": "DEN 437E",
+        "isim": "Seakeeping and Manoeuvring Performance Analyses",
+        "hoca": "Ömer Kemal Kınacı ,Kadir Sarıöz",
+        "mekan": "Physical (Face to face)",
+        "gun": "Tuesday",
+        "bas": 14.0,
+        "bit": 15.983333333333333,
+        "sinif": "-"
+    },
+    {
         "crn": "24209",
         "kod": "DEN 446",
         "isim": "Gemi Elektr.& Kontrol Sist.",
@@ -6672,8 +6826,8 @@
         "hoca": "Hakan Akyıldız",
         "mekan": "Physical (Face to face)",
         "gun": "Monday",
-        "bas": 9.5,
-        "bit": 11.483333333333333,
+        "bas": 10.5,
+        "bit": 12.483333333333333,
         "sinif": "-"
     },
     {
@@ -7059,6 +7213,17 @@
         "gun": "Tuesday",
         "bas": 13.5,
         "bit": 15.483333333333333,
+        "sinif": "Detail"
+    },
+    {
+        "crn": "25279",
+        "kod": "DFH 202",
+        "isim": "Gemilerde Acil Durum. Müdahale",
+        "hoca": "Ahmet Lutfi Tunçel",
+        "mekan": "Physical (Face to face)",
+        "gun": "Tuesday",
+        "bas": 10.5,
+        "bit": 12.483333333333333,
         "sinif": "Detail"
     },
     {
@@ -7678,6 +7843,17 @@
         "sinif": "-"
     },
     {
+        "crn": "25278",
+        "kod": "DUI 214",
+        "isim": "Astronomi",
+        "hoca": "Orhan Gönel",
+        "mekan": "Physical (Face to face)",
+        "gun": "Monday",
+        "bas": 13.5,
+        "bit": 15.483333333333333,
+        "sinif": "-"
+    },
+    {
         "crn": "24851",
         "kod": "DUI 214E",
         "isim": "Astronomy",
@@ -7780,22 +7956,11 @@
         "crn": "23745",
         "kod": "DUI 232",
         "isim": "Gemi Elektroniği",
-        "hoca": "Zuhal Er",
+        "hoca": "Melek Ertogan",
         "mekan": "Physical (Face to face)",
         "gun": "Tuesday",
-        "bas": 8.5,
-        "bit": 10.483333333333333,
-        "sinif": "-"
-    },
-    {
-        "crn": "23748",
-        "kod": "DUI 232",
-        "isim": "Gemi Elektroniği",
-        "hoca": "Zuhal Er",
-        "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
-        "bas": 10.5,
-        "bit": 12.483333333333333,
+        "bas": 15.5,
+        "bit": 17.483333333333334,
         "sinif": "-"
     },
     {
@@ -8001,6 +8166,17 @@
         "kod": "DUI 4901",
         "isim": "Deniz Ulaş.&İşlet.Müh. Tas. I",
         "hoca": "Elif Bal Beşikçi",
+        "mekan": "Physical (Face to face)",
+        "gun": "-",
+        "bas": null,
+        "bit": null,
+        "sinif": "Detail"
+    },
+    {
+        "crn": "25246",
+        "kod": "DUI 4901E",
+        "isim": "MaritimeTrans.Mng.Eng.Design I",
+        "hoca": "Selim Aksoy",
         "mekan": "Physical (Face to face)",
         "gun": "-",
         "bas": null,
@@ -9463,7 +9639,7 @@
         "crn": "25202",
         "kod": "EFN 308E",
         "isim": "Financial Econometrics",
-        "hoca": "-",
+        "hoca": "Rofaida Benotsmane",
         "mekan": "Physical (Face to face)",
         "gun": "Friday",
         "bas": 14.5,
@@ -9498,7 +9674,7 @@
         "isim": "Machine Learning for Bus.Decis",
         "hoca": "Zehra Atik",
         "mekan": "Physical (Face to face)",
-        "gun": "Monday",
+        "gun": "Thursday",
         "bas": 14.5,
         "bit": 17.483333333333334,
         "sinif": "-"
@@ -11682,6 +11858,17 @@
         "sinif": "Credit/Class Resc."
     },
     {
+        "crn": "25262",
+        "kod": "ENR 222",
+        "isim": "Strength of Materials II",
+        "hoca": "Murat Durmaz",
+        "mekan": "Physical (Face to face)",
+        "gun": "Tuesday",
+        "bas": 8.5,
+        "bit": 11.483333333333333,
+        "sinif": "-"
+    },
+    {
         "crn": "CRN",
         "kod": "Course Code",
         "isim": "Course Title",
@@ -11872,7 +12059,7 @@
         "crn": "24766",
         "kod": "ESL 101",
         "isim": "English I",
-        "hoca": "Gürcan Öztürk",
+        "hoca": "Aslıhan Zengin",
         "mekan": "Physical (Face to face)",
         "gun": "Friday",
         "bas": 8.5,
@@ -11883,7 +12070,7 @@
         "crn": "24765",
         "kod": "ESL 102",
         "isim": "English II",
-        "hoca": "Aslıhan Zengin",
+        "hoca": "Gürcan Öztürk",
         "mekan": "Physical (Face to face)",
         "gun": "Friday",
         "bas": 8.5,
@@ -14448,9 +14635,9 @@
         "isim": "Fizikte Deneysel Yöntemler I",
         "hoca": "Murat Erdem",
         "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
-        "bas": 15.5,
-        "bit": 17.483333333333334,
+        "gun": "Thursday",
+        "bas": 13.5,
+        "bit": 15.483333333333333,
         "sinif": "-"
     },
     {
@@ -14459,9 +14646,9 @@
         "isim": "Fizikte Deneysel Yöntemler I",
         "hoca": "Murat Erdem",
         "mekan": "Physical (Face to face)",
-        "gun": "Thursday",
-        "bas": 13.5,
-        "bit": 15.483333333333333,
+        "gun": "Friday",
+        "bas": 14.5,
+        "bit": 16.483333333333334,
         "sinif": "-"
     },
     {
@@ -15020,20 +15207,9 @@
         "isim": "Thermodynamics",
         "hoca": "Murat Durmaz",
         "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
-        "bas": 12.5,
-        "bit": 14.483333333333333,
-        "sinif": "-"
-    },
-    {
-        "crn": "24991",
-        "kod": "GEM 204E",
-        "isim": "Thermodynamics",
-        "hoca": "Murat Durmaz",
-        "mekan": "Physical (Face to face)",
-        "gun": "Wednesday",
-        "bas": 13.5,
-        "bit": 15.483333333333333,
+        "gun": "Friday",
+        "bas": 8.5,
+        "bit": 12.483333333333333,
         "sinif": "-"
     },
     {
@@ -15064,7 +15240,7 @@
         "isim": "Heat Transfer In Engineering",
         "hoca": "Murat Durmaz",
         "mekan": "Physical (Face to face)",
-        "gun": "Thursday",
+        "gun": "Tuesday",
         "bas": 13.5,
         "bit": 16.483333333333334,
         "sinif": "-"
@@ -15395,8 +15571,8 @@
         "hoca": "Erdem Üçer",
         "mekan": "Physical (Face to face)",
         "gun": "Tuesday",
-        "bas": 9.5,
-        "bit": 11.483333333333333,
+        "bas": 8.5,
+        "bit": 10.483333333333333,
         "sinif": "-"
     },
     {
@@ -15576,17 +15752,6 @@
         "sinif": "-"
     },
     {
-        "crn": "24489",
-        "kod": "GEM 482",
-        "isim": "Bireysel Bitirme Projesi",
-        "hoca": "Metin Taylan",
-        "mekan": "Physical (Face to face)",
-        "gun": "-",
-        "bas": null,
-        "bit": null,
-        "sinif": "-"
-    },
-    {
         "crn": "24490",
         "kod": "GEM 482",
         "isim": "Bireysel Bitirme Projesi",
@@ -15668,6 +15833,39 @@
         "kod": "GEM 482",
         "isim": "Bireysel Bitirme Projesi",
         "hoca": "Uğur Oral Ünal",
+        "mekan": "Physical (Face to face)",
+        "gun": "-",
+        "bas": null,
+        "bit": null,
+        "sinif": "-"
+    },
+    {
+        "crn": "25260",
+        "kod": "GEM 482E",
+        "isim": "Individual Graduation Project",
+        "hoca": "Erdem Üçer",
+        "mekan": "Physical (Face to face)",
+        "gun": "-",
+        "bas": null,
+        "bit": null,
+        "sinif": "-"
+    },
+    {
+        "crn": "25263",
+        "kod": "GEM 482E",
+        "isim": "Individual Graduation Project",
+        "hoca": "Murat Durmaz",
+        "mekan": "Physical (Face to face)",
+        "gun": "-",
+        "bas": null,
+        "bit": null,
+        "sinif": "-"
+    },
+    {
+        "crn": "25264",
+        "kod": "GEM 482E",
+        "isim": "Individual Graduation Project",
+        "hoca": "İbrahim Tuğrul Ardıç",
         "mekan": "Physical (Face to face)",
         "gun": "-",
         "bas": null,
@@ -15767,7 +15965,7 @@
         "kod": "GEO 108E",
         "isim": "Fundamentals of Programming",
         "hoca": "Volkan Özbey",
-        "mekan": "Physical (Face to face)",
+        "mekan": "Virtual (Online)",
         "gun": "Wednesday",
         "bas": 8.5,
         "bit": 9.483333333333333,
@@ -15778,7 +15976,7 @@
         "kod": "GEO 108E",
         "isim": "Fundamentals of Programming",
         "hoca": "Volkan Özbey",
-        "mekan": "Physical (Face to face)",
+        "mekan": "Virtual (Online)",
         "gun": "Wednesday",
         "bas": 10.5,
         "bit": 12.483333333333333,
@@ -15789,7 +15987,7 @@
         "kod": "GEO 108E",
         "isim": "Fundamentals of Programming",
         "hoca": "Hasan Tonbul",
-        "mekan": "Physical (Face to face)",
+        "mekan": "Virtual (Online)",
         "gun": "Wednesday",
         "bas": 8.5,
         "bit": 9.483333333333333,
@@ -15800,7 +15998,7 @@
         "kod": "GEO 108E",
         "isim": "Fundamentals of Programming",
         "hoca": "Hasan Tonbul",
-        "mekan": "Physical (Face to face)",
+        "mekan": "Virtual (Online)",
         "gun": "Wednesday",
         "bas": 10.5,
         "bit": 12.483333333333333,
@@ -15811,7 +16009,7 @@
         "kod": "GEO 108E",
         "isim": "Fundamentals of Programming",
         "hoca": "Muhammed Enes Atik",
-        "mekan": "Physical (Face to face)",
+        "mekan": "Virtual (Online)",
         "gun": "Wednesday",
         "bas": 12.5,
         "bit": 15.483333333333333,
@@ -16951,6 +17149,17 @@
         "sinif": "-"
     },
     {
+        "crn": "25265",
+        "kod": "GEO 468E",
+        "isim": "Spec. Topics in Remote Sens.",
+        "hoca": "Uğur Algancı",
+        "mekan": "Physical (Face to face)",
+        "gun": "Wednesday",
+        "bas": 10.5,
+        "bit": 12.483333333333333,
+        "sinif": "-"
+    },
+    {
         "crn": "22804",
         "kod": "GEO 474",
         "isim": "Hidrografik Ölçmeler",
@@ -17572,9 +17781,9 @@
         "isim": "Thermodynamics",
         "hoca": "Yalçın Durmuşoğlu",
         "mekan": "Physical (Face to face)",
-        "gun": "-",
-        "bas": null,
-        "bit": null,
+        "gun": "Tuesday",
+        "bas": 11.5,
+        "bit": 14.483333333333333,
         "sinif": "-"
     },
     {
@@ -17586,6 +17795,17 @@
         "gun": "Monday",
         "bas": 11.5,
         "bit": 14.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "25281",
+        "kod": "GMI 214",
+        "isim": "Hidrolik ve Pnömatik",
+        "hoca": "Çağlar Karatuğ",
+        "mekan": "Physical (Face to face)",
+        "gun": "Monday",
+        "bas": 8.5,
+        "bit": 11.483333333333333,
         "sinif": "-"
     },
     {
@@ -17666,6 +17886,17 @@
         "sinif": "-"
     },
     {
+        "crn": "25280",
+        "kod": "GMI 228",
+        "isim": "Temel Elektronik",
+        "hoca": "Tayfun Uyanık",
+        "mekan": "Physical (Face to face)",
+        "gun": "Tuesday",
+        "bas": 8.5,
+        "bit": 10.483333333333333,
+        "sinif": "-"
+    },
+    {
         "crn": "24861",
         "kod": "GMI 228E",
         "isim": "Basic Electronics",
@@ -17716,8 +17947,8 @@
         "hoca": "Tayfun Uyanık",
         "mekan": "Physical (Face to face)",
         "gun": "Thursday",
-        "bas": 14.5,
-        "bit": 17.483333333333334,
+        "bas": 15.5,
+        "bit": 18.483333333333334,
         "sinif": "-"
     },
     {
@@ -17934,6 +18165,17 @@
         "kod": "GMI 4901",
         "isim": "Gemi Mak. İşl. Müh. Tasarımı I",
         "hoca": "Çağlar Karatuğ",
+        "mekan": "Physical (Face to face)",
+        "gun": "-",
+        "bas": null,
+        "bit": null,
+        "sinif": "Detail"
+    },
+    {
+        "crn": "25247",
+        "kod": "GMI 4901E",
+        "isim": "Marine Engineering Design I",
+        "hoca": "Selim Aksoy",
         "mekan": "Physical (Face to face)",
         "gun": "-",
         "bas": null,
@@ -18947,9 +19189,9 @@
         "isim": "Industrial Eng.Appl. in Python",
         "hoca": "Mahmut Sami Sivri",
         "mekan": "Virtual (Online)",
-        "gun": "Monday",
-        "bas": 14.5,
-        "bit": 17.483333333333334,
+        "gun": "Friday",
+        "bas": 9.5,
+        "bit": 12.483333333333333,
         "sinif": "-"
     },
     {
@@ -20684,7 +20926,7 @@
         "kod": "ING 112A",
         "isim": "Basics of Academic Writing",
         "hoca": "Çağla Tokyay",
-        "mekan": "Physical (Face to face)",
+        "mekan": "Virtual (Online)",
         "gun": "Thursday",
         "bas": 12.5,
         "bit": 14.483333333333333,
@@ -21848,7 +22090,7 @@
     {
         "crn": "25007",
         "kod": "INS 112",
-        "isim": "İnşaat Müh. İçin Yerbilimi",
+        "isim": "İnşaat Mühendisleri İçin Yer Bilimi",
         "hoca": "Yılmaz Mahmutoğlu",
         "mekan": "Physical (Face to face)",
         "gun": "Wednesday",
@@ -21859,7 +22101,7 @@
     {
         "crn": "25008",
         "kod": "INS 112",
-        "isim": "İnşaat Müh. İçin Yerbilimi",
+        "isim": "İnşaat Mühendisleri İçin Yer Bilimi",
         "hoca": "Şaziye Özge Dinç Göğüş",
         "mekan": "Physical (Face to face)",
         "gun": "Thursday",
@@ -21870,7 +22112,7 @@
     {
         "crn": "25009",
         "kod": "INS 112",
-        "isim": "İnşaat Müh. İçin Yerbilimi",
+        "isim": "İnşaat Mühendisleri İçin Yer Bilimi",
         "hoca": "Enes Zengin",
         "mekan": "Physical (Face to face)",
         "gun": "Friday",
@@ -21881,7 +22123,7 @@
     {
         "crn": "25010",
         "kod": "INS 112E",
-        "isim": "Earth Science for Civil Engin.",
+        "isim": "Earth Science for Civil Engineers",
         "hoca": "Kayhan Develi",
         "mekan": "Physical (Face to face)",
         "gun": "Tuesday",
@@ -21892,7 +22134,7 @@
     {
         "crn": "25011",
         "kod": "INS 112E",
-        "isim": "Earth Science for Civil Engin.",
+        "isim": "Earth Science for Civil Engineers",
         "hoca": "Kayhan Develi",
         "mekan": "Physical (Face to face)",
         "gun": "Wednesday",
@@ -23650,6 +23892,17 @@
         "sinif": "-"
     },
     {
+        "crn": "25267",
+        "kod": "ISH 301E",
+        "isim": "Fundamentals of Env.Sci & Eng.",
+        "hoca": "Elif Pehlivanoğlu ,Serdar Doğruel",
+        "mekan": "Physical (Face to face)",
+        "gun": "Friday",
+        "bas": 8.5,
+        "bit": 11.483333333333333,
+        "sinif": "-"
+    },
+    {
         "crn": "CRN",
         "kod": "Course Code",
         "isim": "Course Title",
@@ -25028,7 +25281,7 @@
         "crn": "22845",
         "kod": "JEF 362E",
         "isim": "Groundwater Exploration",
-        "hoca": "Büşra Kartal",
+        "hoca": "Doğa Doğan",
         "mekan": "Physical (Face to face)",
         "gun": "Friday",
         "bas": 10.5,
@@ -28053,7 +28306,7 @@
         "crn": "23103",
         "kod": "KMM 467",
         "isim": "Kristalizasyon",
-        "hoca": "Ayşen Aktürk Sertbaş",
+        "hoca": "Ayşe Arifoğlu",
         "mekan": "Physical (Face to face)",
         "gun": "Thursday",
         "bas": 13.5,
@@ -28542,6 +28795,17 @@
         "gun": "Thursday",
         "bas": 8.5,
         "bit": 12.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "25286",
+        "kod": "KON 224E",
+        "isim": "Measurement&Instrumentation",
+        "hoca": "Yücel Aydın",
+        "mekan": "Physical (Face to face)",
+        "gun": "Tuesday",
+        "bas": 13.5,
+        "bit": 16.483333333333334,
         "sinif": "-"
     },
     {
@@ -30299,7 +30563,7 @@
         "isim": "Ölçme Değerlendirme",
         "hoca": "Ayhan Kural",
         "mekan": "Physical (Face to face)",
-        "gun": "Thursday",
+        "gun": "Wednesday",
         "bas": 11.5,
         "bit": 13.483333333333333,
         "sinif": "-"
@@ -30310,9 +30574,9 @@
         "isim": "Ölçme Değerlendirme",
         "hoca": "Ayhan Kural",
         "mekan": "Physical (Face to face)",
-        "gun": "Friday",
-        "bas": 15.5,
-        "bit": 17.483333333333334,
+        "gun": "Thursday",
+        "bas": 11.5,
+        "bit": 13.483333333333333,
         "sinif": "-"
     },
     {
@@ -31427,6 +31691,17 @@
         "sinif": "-"
     },
     {
+        "crn": "25244",
+        "kod": "MAL 201",
+        "isim": "Malzeme Bilimi",
+        "hoca": "Hasan Yıldırım",
+        "mekan": "Physical (Face to face)",
+        "gun": "Tuesday",
+        "bas": 14.5,
+        "bit": 17.483333333333334,
+        "sinif": "-"
+    },
+    {
         "crn": "22702",
         "kod": "MAL 201E",
         "isim": "Materials Science",
@@ -31468,6 +31743,17 @@
         "gun": "Wednesday",
         "bas": 8.5,
         "bit": 11.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "25245",
+        "kod": "MAL 201E",
+        "isim": "Materials Science",
+        "hoca": "Bekir Yılmaz Pekmezci",
+        "mekan": "Physical (Face to face)",
+        "gun": "Tuesday",
+        "bas": 14.5,
+        "bit": 17.483333333333334,
         "sinif": "-"
     },
     {
@@ -32538,9 +32824,9 @@
         "sinif": "-"
     },
     {
-        "crn": "23523",
-        "kod": "MAT 148E",
-        "isim": "Discrete Mathematics",
+        "crn": "25255",
+        "kod": "MAT 148",
+        "isim": "Ayrık Matematik",
         "hoca": "Burak Yıldıran Stodolsky",
         "mekan": "Physical (Face to face)",
         "gun": "Monday",
@@ -32780,21 +33066,10 @@
         "sinif": "-"
     },
     {
-        "crn": "23542",
-        "kod": "MAT 234",
-        "isim": "Kısmi Diferansiyel Denklemler",
-        "hoca": "Cihangir Özemir",
-        "mekan": "Physical (Face to face)",
-        "gun": "Friday",
-        "bas": 9.5,
-        "bit": 12.483333333333333,
-        "sinif": "-"
-    },
-    {
         "crn": "23543",
         "kod": "MAT 234E",
         "isim": "Partial Differential Equations",
-        "hoca": "Aybike Özer",
+        "hoca": "Cihangir Özemir",
         "mekan": "Physical (Face to face)",
         "gun": "Friday",
         "bas": 9.5,
@@ -33033,6 +33308,17 @@
         "sinif": "-"
     },
     {
+        "crn": "25259",
+        "kod": "MAT 271E",
+        "isim": "Probability and Statistics",
+        "hoca": "Ahmet Ergin",
+        "mekan": "Physical (Face to face)",
+        "gun": "Thursday",
+        "bas": 13.5,
+        "bit": 16.483333333333334,
+        "sinif": "-"
+    },
+    {
         "crn": "23552",
         "kod": "MAT 272E",
         "isim": "Advanced Mathematics",
@@ -33118,6 +33404,17 @@
         "gun": "Thursday",
         "bas": 8.5,
         "bit": 11.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "25257",
+        "kod": "MAT 345E",
+        "isim": "Complex Analysis",
+        "hoca": "Aybike Özer",
+        "mekan": "Physical (Face to face)",
+        "gun": "Wednesday",
+        "bas": 11.5,
+        "bit": 14.483333333333333,
         "sinif": "-"
     },
     {
@@ -33306,6 +33603,17 @@
         "bas": null,
         "bit": null,
         "sinif": "Detail"
+    },
+    {
+        "crn": "25256",
+        "kod": "MAT 497E",
+        "isim": "Tensor Analysis",
+        "hoca": "Füsun Zengin",
+        "mekan": "Physical (Face to face)",
+        "gun": "Wednesday",
+        "bas": 8.5,
+        "bit": 11.483333333333333,
+        "sinif": "-"
     },
     {
         "crn": "CRN",
@@ -37048,6 +37356,17 @@
         "sinif": "-"
     },
     {
+        "crn": "25277",
+        "kod": "MMD 408E",
+        "isim": "Graduation Project",
+        "hoca": "Selim Aksoy",
+        "mekan": "Physical (Face to face)",
+        "gun": "-",
+        "bas": null,
+        "bit": null,
+        "sinif": "Detail"
+    },
+    {
         "crn": "24941",
         "kod": "MMD 421E",
         "isim": "Port Security Management",
@@ -37164,8 +37483,19 @@
         "hoca": "Şükriye Yüksel Filiz",
         "mekan": "Physical (Face to face)",
         "gun": "Monday",
-        "bas": 8.5,
-        "bit": 12.483333333333333,
+        "bas": 11.5,
+        "bit": 13.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "24873",
+        "kod": "MOD 311",
+        "isim": "Leather Apparel Design",
+        "hoca": "Şükriye Yüksel Filiz",
+        "mekan": "Physical (Face to face)",
+        "gun": "Tuesday",
+        "bas": 11.5,
+        "bit": 13.483333333333333,
         "sinif": "-"
     },
     {
@@ -37455,17 +37785,6 @@
         "sinif": "-"
     },
     {
-        "crn": "25061",
-        "kod": "MST 413",
-        "isim": "Shipyard Organization",
-        "hoca": "Murat Durmaz",
-        "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
-        "bas": 9.5,
-        "bit": 11.483333333333333,
-        "sinif": "-"
-    },
-    {
         "crn": "24900",
         "kod": "MST 461",
         "isim": "Terminal & Tanker Operations",
@@ -37678,7 +37997,7 @@
         "crn": "24929",
         "kod": "MTH 407E",
         "isim": "Fundamentals of Automatic Target Tracking",
-        "hoca": "Ahmet Kırış",
+        "hoca": "Burcu Tunga",
         "mekan": "Physical (Face to face)",
         "gun": "Friday",
         "bas": 9.5,
@@ -40238,6 +40557,17 @@
         "sinif": "-"
     },
     {
+        "crn": "25272",
+        "kod": "MUZ 486",
+        "isim": "Müzik Pedagojisine Giriş",
+        "hoca": "Atilla Coşkun Toksoy",
+        "mekan": "Physical (Face to face)",
+        "gun": "Thursday",
+        "bas": 8.5,
+        "bit": 11.483333333333333,
+        "sinif": "-"
+    },
+    {
         "crn": "21213",
         "kod": "MUZ 488",
         "isim": "Müzik Estetiğine Giriş",
@@ -40441,7 +40771,7 @@
         "isim": "Ship Geometry",
         "hoca": "Murat Durmaz",
         "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
+        "gun": "Friday",
         "bas": 14.5,
         "bit": 17.483333333333334,
         "sinif": "-"
@@ -40717,8 +41047,8 @@
         "hoca": "Canan Sarıçam",
         "mekan": "Physical (Face to face)",
         "gun": "Thursday",
-        "bas": 8.5,
-        "bit": 12.483333333333333,
+        "bas": 13.5,
+        "bit": 17.483333333333334,
         "sinif": "-"
     },
     {
@@ -40739,8 +41069,8 @@
         "hoca": "Canan Sarıçam",
         "mekan": "Physical (Face to face)",
         "gun": "Thursday",
-        "bas": 14.0,
-        "bit": 16.983333333333334,
+        "bas": 8.5,
+        "bit": 11.483333333333333,
         "sinif": "-"
     },
     {
@@ -41424,6 +41754,17 @@
         "bas": 8.5,
         "bit": 11.483333333333333,
         "sinif": "-"
+    },
+    {
+        "crn": "25282",
+        "kod": "PET 4901E",
+        "isim": "Petr. & Nat. Gas Eng. Design I",
+        "hoca": "Murat Çınar",
+        "mekan": "Physical (Face to face)",
+        "gun": "-",
+        "bas": null,
+        "bit": null,
+        "sinif": "Detail"
     },
     {
         "crn": "22779",
@@ -44413,8 +44754,8 @@
         "hoca": "Lütfiye Durak Ata ,Börte Köse Mutlu",
         "mekan": "Virtual (Online)",
         "gun": "Monday",
-        "bas": 17.5,
-        "bit": 20.483333333333334,
+        "bas": 18.5,
+        "bit": 21.483333333333334,
         "sinif": "-"
     },
     {
@@ -45485,6 +45826,17 @@
         "sinif": "-"
     },
     {
+        "crn": "25283",
+        "kod": "THO 112",
+        "isim": "Hareket Anatomisi II",
+        "hoca": "Nihal Cömert",
+        "mekan": "Physical (Face to face)",
+        "gun": "Friday",
+        "bas": 14.0,
+        "bit": 15.983333333333333,
+        "sinif": "-"
+    },
+    {
         "crn": "21942",
         "kod": "THO 114",
         "isim": "Oyun Tekniği II",
@@ -46087,6 +46439,17 @@
         "gun": "Monday",
         "bas": 13.5,
         "bit": 15.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "25271",
+        "kod": "THO 472",
+        "isim": "Türk Halk Oyunları II",
+        "hoca": "Cenap Güngör",
+        "mekan": "Physical (Face to face)",
+        "gun": "Thursday",
+        "bas": 8.5,
+        "bit": 10.483333333333333,
         "sinif": "-"
     },
     {
@@ -47096,9 +47459,9 @@
         "isim": "Aerodynamics",
         "hoca": "Saliha Banu Yılmaz",
         "mekan": "Physical (Face to face)",
-        "gun": "Wednesday",
-        "bas": 8.5,
-        "bit": 11.483333333333333,
+        "gun": "Thursday",
+        "bas": 11.5,
+        "bit": 14.483333333333333,
         "sinif": "-"
     },
     {
@@ -47594,6 +47957,17 @@
         "gun": "Friday",
         "bas": 9.5,
         "bit": 12.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "25242",
+        "kod": "ULP 104",
+        "isim": "English Communication",
+        "hoca": "Merve Sevtap Süren",
+        "mekan": "Physical (Face to face)",
+        "gun": "Wednesday",
+        "bas": 8.5,
+        "bit": 11.483333333333333,
         "sinif": "-"
     },
     {
