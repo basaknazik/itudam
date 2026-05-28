@@ -1617,6 +1617,50 @@
         "sinif": "-"
     },
     {
+        "crn": "30320",
+        "kod": "FIZ 102E",
+        "isim": "Physics II",
+        "hoca": "Mehmet Cem Güçlü",
+        "mekan": "Physical (Face to face)",
+        "gun": "Thursday",
+        "bas": 8.5,
+        "bit": 11.983333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "30320",
+        "kod": "FIZ 102E",
+        "isim": "Physics II",
+        "hoca": "Mehmet Cem Güçlü",
+        "mekan": "Physical (Face to face)",
+        "gun": "Thursday",
+        "bas": 13.5,
+        "bit": 16.983333333333334,
+        "sinif": "-"
+    },
+    {
+        "crn": "30321",
+        "kod": "FIZ 102E",
+        "isim": "Physics II",
+        "hoca": "Mehmet Cem Güçlü",
+        "mekan": "Physical (Face to face)",
+        "gun": "Friday",
+        "bas": 8.5,
+        "bit": 11.983333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "30321",
+        "kod": "FIZ 102E",
+        "isim": "Physics II",
+        "hoca": "Mehmet Cem Güçlü",
+        "mekan": "Physical (Face to face)",
+        "gun": "Friday",
+        "bas": 14.0,
+        "bit": 17.483333333333334,
+        "sinif": "-"
+    },
+    {
         "crn": "CRN",
         "kod": "Course Code",
         "isim": "Course Title",
