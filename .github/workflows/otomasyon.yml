@@ -52,4 +52,4 @@ jobs:
         
         # Değişiklik varsa commit et, yoksa hata verme
         git commit -m "Otomatik Güncelleme: $(date +'%Y-%m-%d %H:%M')" || exit 0
-        git push
+        git push --force origin main
