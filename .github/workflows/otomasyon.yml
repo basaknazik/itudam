@@ -51,4 +51,4 @@ jobs:
         git pull --rebase origin main
         git add dersler.json index.html
         git commit -m "Otomatik Güncelleme: $(date +'%Y-%m-%d %H:%M')" || exit 0
-        git push origin main
+        git push origin HEAD:main --force
