@@ -693,10 +693,10 @@
         "sinif": "-"
     },
     {
-        "crn": "30336",
-        "kod": "BLG 458E",
+        "crn": "30473",
+        "kod": "BLG 470E",
         "isim": "Functional Programming",
-        "hoca": "Yusuf Hüseyin Şahin",
+        "hoca": "-",
         "mekan": "Physical (Face to face)",
         "gun": "Friday",
         "bas": 9.5,
@@ -704,10 +704,10 @@
         "sinif": "-"
     },
     {
-        "crn": "30336",
-        "kod": "BLG 458E",
+        "crn": "30473",
+        "kod": "BLG 470E",
         "isim": "Functional Programming",
-        "hoca": "Yusuf Hüseyin Şahin",
+        "hoca": "-",
         "mekan": "Physical (Face to face)",
         "gun": "Friday",
         "bas": 14.5,
@@ -2469,29 +2469,7 @@
         "isim": "Physics II",
         "hoca": "Emre Onur Kahya",
         "mekan": "Physical (Face to face)",
-        "gun": "Wednesday",
-        "bas": 8.5,
-        "bit": 11.983333333333333,
-        "sinif": "-"
-    },
-    {
-        "crn": "30214",
-        "kod": "FIZ 102E",
-        "isim": "Physics II",
-        "hoca": "Emre Onur Kahya",
-        "mekan": "Physical (Face to face)",
         "gun": "Tuesday",
-        "bas": 13.5,
-        "bit": 16.983333333333334,
-        "sinif": "-"
-    },
-    {
-        "crn": "30214",
-        "kod": "FIZ 102E",
-        "isim": "Physics II",
-        "hoca": "Emre Onur Kahya",
-        "mekan": "Physical (Face to face)",
-        "gun": "Wednesday",
         "bas": 13.5,
         "bit": 16.983333333333334,
         "sinif": "-"
@@ -2747,6 +2725,28 @@
         "gun": "Tuesday",
         "bas": 13.5,
         "bit": 14.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "30472",
+        "kod": "GEM 328E",
+        "isim": "Ship Hydrodynamics(Propulsion)",
+        "hoca": "Cihad Delen",
+        "mekan": "Physical (Face to face)",
+        "gun": "Thursday",
+        "bas": 9.0,
+        "bit": 11.983333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "30472",
+        "kod": "GEM 328E",
+        "isim": "Ship Hydrodynamics(Propulsion)",
+        "hoca": "Cihad Delen",
+        "mekan": "Physical (Face to face)",
+        "gun": "Thursday",
+        "bas": 13.0,
+        "bit": 16.983333333333334,
         "sinif": "-"
     },
     {
@@ -3052,9 +3052,9 @@
         "isim": "Thermodynamics",
         "hoca": "Yalçın Durmuşoğlu",
         "mekan": "Physical (Face to face)",
-        "gun": "Friday",
+        "gun": "Wednesday",
         "bas": 8.5,
-        "bit": 12.483333333333333,
+        "bit": 11.483333333333333,
         "sinif": "-"
     },
     {
@@ -3063,9 +3063,9 @@
         "isim": "Thermodynamics",
         "hoca": "Yalçın Durmuşoğlu",
         "mekan": "Physical (Face to face)",
-        "gun": "Friday",
-        "bas": 14.0,
-        "bit": 16.983333333333334,
+        "gun": "Wednesday",
+        "bas": 12.5,
+        "bit": 16.483333333333334,
         "sinif": "-"
     },
     {
@@ -3096,7 +3096,7 @@
         "isim": "Heat Transfer",
         "hoca": "Yalçın Durmuşoğlu",
         "mekan": "Physical (Face to face)",
-        "gun": "Wednesday",
+        "gun": "Monday",
         "bas": 8.5,
         "bit": 11.483333333333333,
         "sinif": "-"
@@ -3107,7 +3107,7 @@
         "isim": "Heat Transfer",
         "hoca": "Yalçın Durmuşoğlu",
         "mekan": "Physical (Face to face)",
-        "gun": "Wednesday",
+        "gun": "Monday",
         "bas": 12.5,
         "bit": 16.483333333333334,
         "sinif": "-"
@@ -4895,6 +4895,72 @@
         "sinif": "Credit/Class Resc."
     },
     {
+        "crn": "30474",
+        "kod": "ISE 102",
+        "isim": "Programming I",
+        "hoca": "Deniz Turgay Altılar",
+        "mekan": "Physical (Face to face)",
+        "gun": "Tuesday",
+        "bas": 8.5,
+        "bit": 11.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "30474",
+        "kod": "ISE 102",
+        "isim": "Programming I",
+        "hoca": "Deniz Turgay Altılar",
+        "mekan": "Physical (Face to face)",
+        "gun": "Wednesday",
+        "bas": 8.5,
+        "bit": 11.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "30474",
+        "kod": "ISE 102",
+        "isim": "Programming I",
+        "hoca": "Deniz Turgay Altılar",
+        "mekan": "Physical (Face to face)",
+        "gun": "Wednesday",
+        "bas": 13.5,
+        "bit": 15.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "30474",
+        "kod": "ISE 102",
+        "isim": "Programming I",
+        "hoca": "Deniz Turgay Altılar",
+        "mekan": "Physical (Face to face)",
+        "gun": "Thursday",
+        "bas": 13.5,
+        "bit": 17.483333333333334,
+        "sinif": "-"
+    },
+    {
+        "crn": "30475",
+        "kod": "ISE 111",
+        "isim": "Linear Algebra",
+        "hoca": "Deniz Turgay Altılar",
+        "mekan": "Physical (Face to face)",
+        "gun": "Tuesday",
+        "bas": 13.5,
+        "bit": 17.483333333333334,
+        "sinif": "-"
+    },
+    {
+        "crn": "30475",
+        "kod": "ISE 111",
+        "isim": "Linear Algebra",
+        "hoca": "Deniz Turgay Altılar",
+        "mekan": "Physical (Face to face)",
+        "gun": "Thursday",
+        "bas": 8.5,
+        "bit": 11.483333333333333,
+        "sinif": "-"
+    },
+    {
         "crn": "CRN",
         "kod": "Course Code",
         "isim": "Course Title",
@@ -5978,9 +6044,9 @@
         "isim": "Termodinamik I",
         "hoca": "Yakup Erhan Böke ,Mustafa Özdemir",
         "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
-        "bas": 9.0,
-        "bit": 11.983333333333333,
+        "gun": "Friday",
+        "bas": 8.5,
+        "bit": 12.483333333333333,
         "sinif": "-"
     },
     {
@@ -5989,9 +6055,9 @@
         "isim": "Termodinamik I",
         "hoca": "Yakup Erhan Böke ,Mustafa Özdemir",
         "mekan": "Physical (Face to face)",
-        "gun": "Thursday",
-        "bas": 13.0,
-        "bit": 16.983333333333334,
+        "gun": "Friday",
+        "bas": 14.5,
+        "bit": 17.483333333333334,
         "sinif": "-"
     },
     {
@@ -6100,8 +6166,8 @@
         "hoca": "Yakup Erhan Böke ,Mustafa Özdemir",
         "mekan": "Physical (Face to face)",
         "gun": "Tuesday",
-        "bas": 13.0,
-        "bit": 16.983333333333334,
+        "bas": 9.0,
+        "bit": 12.983333333333333,
         "sinif": "-"
     },
     {
@@ -6110,9 +6176,9 @@
         "isim": "Termodinamik II",
         "hoca": "Yakup Erhan Böke ,Mustafa Özdemir",
         "mekan": "Physical (Face to face)",
-        "gun": "Thursday",
-        "bas": 9.0,
-        "bit": 11.983333333333333,
+        "gun": "Tuesday",
+        "bas": 14.0,
+        "bit": 16.983333333333334,
         "sinif": "-"
     },
     {
@@ -6121,7 +6187,7 @@
         "isim": "Akışkanlar Mekaniği I",
         "hoca": "Sertaç Çadırcı ,Hasan Güneş",
         "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
+        "gun": "Wednesday",
         "bas": 9.0,
         "bit": 12.983333333333333,
         "sinif": "-"
@@ -6130,17 +6196,6 @@
         "crn": "30420",
         "kod": "MAK 228",
         "isim": "Akışkanlar Mekaniği I",
-        "hoca": "Sertaç Çadırcı ,Hasan Güneş",
-        "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
-        "bas": 14.0,
-        "bit": 16.983333333333334,
-        "sinif": "-"
-    },
-    {
-        "crn": "30421",
-        "kod": "MAK 229",
-        "isim": "Akışkanlar Mekaniği II",
         "hoca": "Sertaç Çadırcı ,Hasan Güneş",
         "mekan": "Physical (Face to face)",
         "gun": "Wednesday",
@@ -6154,73 +6209,84 @@
         "isim": "Akışkanlar Mekaniği II",
         "hoca": "Sertaç Çadırcı ,Hasan Güneş",
         "mekan": "Physical (Face to face)",
+        "gun": "Thursday",
+        "bas": 14.0,
+        "bit": 16.983333333333334,
+        "sinif": "-"
+    },
+    {
+        "crn": "30421",
+        "kod": "MAK 229",
+        "isim": "Akışkanlar Mekaniği II",
+        "hoca": "Sertaç Çadırcı ,Hasan Güneş",
+        "mekan": "Physical (Face to face)",
+        "gun": "Thursday",
+        "bas": 9.0,
+        "bit": 12.983333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "30445",
+        "kod": "MAK 231",
+        "isim": "Termodinamik I",
+        "hoca": "Yakup Erhan Böke ,Mustafa Özdemir",
+        "mekan": "Physical (Face to face)",
+        "gun": "Friday",
+        "bas": 8.5,
+        "bit": 12.483333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "30445",
+        "kod": "MAK 231",
+        "isim": "Termodinamik I",
+        "hoca": "Yakup Erhan Böke ,Mustafa Özdemir",
+        "mekan": "Physical (Face to face)",
+        "gun": "Friday",
+        "bas": 14.5,
+        "bit": 17.483333333333334,
+        "sinif": "-"
+    },
+    {
+        "crn": "30447",
+        "kod": "MAK 232",
+        "isim": "Termodinamik II",
+        "hoca": "Yakup Erhan Böke ,Mustafa Özdemir",
+        "mekan": "Physical (Face to face)",
+        "gun": "Tuesday",
+        "bas": 9.0,
+        "bit": 12.983333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "30447",
+        "kod": "MAK 232",
+        "isim": "Termodinamik II",
+        "hoca": "Yakup Erhan Böke ,Mustafa Özdemir",
+        "mekan": "Physical (Face to face)",
+        "gun": "Tuesday",
+        "bas": 14.0,
+        "bit": 16.983333333333334,
+        "sinif": "-"
+    },
+    {
+        "crn": "30418",
+        "kod": "MAK 234",
+        "isim": "Akışkanlar Mekaniği I",
+        "hoca": "Sertaç Çadırcı ,Hasan Güneş",
+        "mekan": "Physical (Face to face)",
         "gun": "Wednesday",
         "bas": 9.0,
         "bit": 12.983333333333333,
         "sinif": "-"
     },
     {
-        "crn": "30445",
-        "kod": "MAK 231",
-        "isim": "Termodinamik I",
-        "hoca": "Yakup Erhan Böke ,Mustafa Özdemir",
-        "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
-        "bas": 9.0,
-        "bit": 11.983333333333333,
-        "sinif": "-"
-    },
-    {
-        "crn": "30445",
-        "kod": "MAK 231",
-        "isim": "Termodinamik I",
-        "hoca": "Yakup Erhan Böke ,Mustafa Özdemir",
-        "mekan": "Physical (Face to face)",
-        "gun": "Thursday",
-        "bas": 13.0,
-        "bit": 16.983333333333334,
-        "sinif": "-"
-    },
-    {
-        "crn": "30447",
-        "kod": "MAK 232",
-        "isim": "Termodinamik II",
-        "hoca": "Yakup Erhan Böke ,Mustafa Özdemir",
-        "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
-        "bas": 13.0,
-        "bit": 16.983333333333334,
-        "sinif": "-"
-    },
-    {
-        "crn": "30447",
-        "kod": "MAK 232",
-        "isim": "Termodinamik II",
-        "hoca": "Yakup Erhan Böke ,Mustafa Özdemir",
-        "mekan": "Physical (Face to face)",
-        "gun": "Thursday",
-        "bas": 9.0,
-        "bit": 11.983333333333333,
-        "sinif": "-"
-    },
-    {
         "crn": "30418",
         "kod": "MAK 234",
         "isim": "Akışkanlar Mekaniği I",
         "hoca": "Sertaç Çadırcı ,Hasan Güneş",
         "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
-        "bas": 9.0,
-        "bit": 12.983333333333333,
-        "sinif": "-"
-    },
-    {
-        "crn": "30418",
-        "kod": "MAK 234",
-        "isim": "Akışkanlar Mekaniği I",
-        "hoca": "Sertaç Çadırcı ,Hasan Güneş",
-        "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
+        "gun": "Wednesday",
         "bas": 14.0,
         "bit": 16.983333333333334,
         "sinif": "-"
@@ -6319,7 +6385,7 @@
         "isim": "Mekanik Titreşimler",
         "hoca": "Akif Yavuz",
         "mekan": "Physical (Face to face)",
-        "gun": "Monday",
+        "gun": "Tuesday",
         "bas": 13.5,
         "bit": 17.483333333333334,
         "sinif": "-"
@@ -6407,7 +6473,7 @@
         "isim": "Mekanik Titreşimler",
         "hoca": "Akif Yavuz",
         "mekan": "Physical (Face to face)",
-        "gun": "Tuesday",
+        "gun": "Monday",
         "bas": 13.5,
         "bit": 17.483333333333334,
         "sinif": "-"
@@ -6440,7 +6506,7 @@
         "isim": "Akışkanlar Mekaniği II",
         "hoca": "Sertaç Çadırcı ,Hasan Güneş",
         "mekan": "Physical (Face to face)",
-        "gun": "Wednesday",
+        "gun": "Thursday",
         "bas": 14.0,
         "bit": 16.983333333333334,
         "sinif": "-"
@@ -6451,7 +6517,7 @@
         "isim": "Akışkanlar Mekaniği II",
         "hoca": "Sertaç Çadırcı ,Hasan Güneş",
         "mekan": "Physical (Face to face)",
-        "gun": "Wednesday",
+        "gun": "Thursday",
         "bas": 9.0,
         "bit": 12.983333333333333,
         "sinif": "-"
@@ -7962,6 +8028,28 @@
         "bas": null,
         "bit": null,
         "sinif": "Credit/Class Resc."
+    },
+    {
+        "crn": "30471",
+        "kod": "PHY 127",
+        "isim": "Physics",
+        "hoca": "Emre Onur Kahya",
+        "mekan": "Physical (Face to face)",
+        "gun": "Wednesday",
+        "bas": 8.5,
+        "bit": 11.983333333333333,
+        "sinif": "-"
+    },
+    {
+        "crn": "30471",
+        "kod": "PHY 127",
+        "isim": "Physics",
+        "hoca": "Emre Onur Kahya",
+        "mekan": "Physical (Face to face)",
+        "gun": "Wednesday",
+        "bas": 13.5,
+        "bit": 16.983333333333334,
+        "sinif": "-"
     },
     {
         "crn": "CRN",
